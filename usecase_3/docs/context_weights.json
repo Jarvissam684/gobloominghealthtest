@@ -1,0 +1,69 @@
+{
+  "description": "Context-specific dimension weights for overall score (sum to 1.0). Use when context_type is known; otherwise use default_weights.",
+  "default_weights": {
+    "task_completion": 0.25,
+    "empathy": 0.15,
+    "conciseness": 0.10,
+    "naturalness": 0.15,
+    "safety": 0.20,
+    "clarity": 0.15
+  },
+  "by_context": {
+    "verification": {
+      "task_completion": 0.40,
+      "empathy": 0.00,
+      "conciseness": 0.20,
+      "naturalness": 0.05,
+      "safety": 0.30,
+      "clarity": 0.10
+    },
+    "screening": {
+      "task_completion": 0.30,
+      "empathy": 0.35,
+      "conciseness": 0.05,
+      "naturalness": 0.20,
+      "safety": 0.15,
+      "clarity": 0.05
+    },
+    "clarification": {
+      "task_completion": 0.05,
+      "empathy": 0.30,
+      "conciseness": 0.05,
+      "naturalness": 0.25,
+      "safety": 0.15,
+      "clarity": 0.30
+    },
+    "follow_up": {
+      "task_completion": 0.30,
+      "empathy": 0.05,
+      "conciseness": 0.25,
+      "naturalness": 0.30,
+      "safety": 0.15,
+      "clarity": 0.05
+    },
+    "triage": {
+      "task_completion": 0.25,
+      "empathy": 0.20,
+      "conciseness": 0.10,
+      "naturalness": 0.15,
+      "safety": 0.20,
+      "clarity": 0.10
+    },
+    "intake": {
+      "task_completion": 0.35,
+      "empathy": 0.15,
+      "conciseness": 0.15,
+      "naturalness": 0.10,
+      "safety": 0.20,
+      "clarity": 0.05
+    },
+    "referral": {
+      "task_completion": 0.25,
+      "empathy": 0.15,
+      "conciseness": 0.20,
+      "naturalness": 0.20,
+      "safety": 0.15,
+      "clarity": 0.05
+    }
+  }
+}

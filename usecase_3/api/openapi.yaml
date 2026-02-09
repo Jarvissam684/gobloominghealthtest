@@ -1,0 +1,740 @@
+openapi: 3.0.3
+info:
+  title: LLM Response Quality Evaluator API
+  description: Real-time evaluation of healthcare voice AI responses (SDOH screening, verification).
+  version: 1.0.0
+
+servers:
+  - url: /api
+    description: API base path
+
+security:
+  - BearerAuth: []
+
+paths:
+  /improve:
+    post:
+      operationId: improveResponse
+      summary: Generate improved version of a response with change explanation
+      description: |
+        Takes context + original response; optionally target_dimensions (e.g. empathy, conciseness).
+        Returns improved response, predicted scores, categorized changes (lexical, structural, additive, subtractive),
+        and confidence. Can return 2–3 variants (empathy-focused, conciseness-focused, naturalness-focused).
+        Preserves original intent and directive. Chainable: use improved response as input to another /api/improve.
+      tags:
+        - Improvement
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ImproveRequest'
+            examples:
+              empathy_focus:
+                summary: Improve empathy
+                value:
+                  context:
+                    directive: "Ask the food security screening question."
+                    user_input: "I've been really stressed about bills."
+                    metadata: { context_type: screening }
+                  response: "Okay, noted. Next question: Within the past 12 months, did you worry that your food would run out before you got money to buy more?"
+                  target_dimensions: [empathy, naturalness]
+                  num_variants: 1
+              conciseness_focus:
+                summary: Improve conciseness
+                value:
+                  response: "I just want to say that we really want to make sure that we ask you about whether or not in the past 12 months you have had trouble paying for food."
+                  target_dimensions: [conciseness]
+      responses:
+        '200':
+          description: Improvement success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImprovementResult'
+              example:
+                original_response: "Okay, noted. Next question: Within the past 12 months, did you worry that your food would run out?"
+                original_scores: { empathy: 4, conciseness: 7, overall: 5.5 }
+                improved_response: "I hear you, that sounds really difficult. I want to make sure we can connect you with the right resources. So within the past 12 months, have you worried that your food would run out before you got money to buy more?"
+                predicted_scores: { empathy: 7, conciseness: 6, overall: 6.8 }
+                changes_made:
+                  - category: lexical
+                    dimension: empathy
+                    original_text: "Okay, noted"
+                    improved_text: "I hear you, that sounds really difficult"
+                    description: "[Empathy] Replaced 'noted' with 'I hear you, that sounds really difficult'"
+                  - category: structural
+                    dimension: naturalness
+                    original_text: "did you worry"
+                    improved_text: "have you worried"
+                    description: "[Naturalness] More conversational phrasing"
+                confidence_in_improvement: 0.75
+                recommend_human_review: false
+                variants: []
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Error' }
+        '408':
+          description: Timeout
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Error' }
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Error' }
+
+  /compare:
+    post:
+      operationId: compareResponses
+      summary: A/B compare two responses to the same context
+      description: |
+        Compares two responses (response_a, response_b) under the same context.
+        Supports prompt A/B testing (e.g. new variant vs baseline). Unbiased: both
+        responses are evaluated independently; order is not revealed to the judge.
+        Returns winner (a/b/tie), per-dimension comparison, and actionable recommendation.
+      tags:
+        - Comparison
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CompareRequest'
+            examples:
+              variant_vs_baseline:
+                summary: Variant vs baseline (screening)
+                value:
+                  context:
+                    directive: "Ask the standard food security screening question clearly."
+                    user_input: "I've been really stressed about bills."
+                    metadata:
+                      context_type: screening
+                  response_a: "We need to ask about food. Did you run out of food? Okay, next question."
+                  response_b: "I hear you, that can be really hard. One more question we ask everyone—in the last 12 months, have you or anyone in your household run out of food before you could get more?"
+              verification_pair:
+                summary: Two verification responses
+                value:
+                  context:
+                    directive: "Collect whether the member is currently employed (yes/no)."
+                    metadata:
+                      context_type: verification
+                  response_a: "So right now you're not employed—we'll mark that as no. Anything else?"
+                  response_b: "I'll record that as no. Is there anything else about work you want to add?"
+      responses:
+        '200':
+          description: Comparison success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ComparisonResult'
+              example:
+                compare_id: "cmp_abc123"
+                winner: "b"
+                overall_winner: "b"
+                dimension_comparisons:
+                  - dimension: empathy
+                    winner: "b"
+                    score_a: 3
+                    score_b: 8
+                    reasoning: "Response B acknowledges the user's stress before asking; A jumps to the question."
+                    example: "I hear you, that can be really hard."
+                  - dimension: task_completion
+                    winner: "tie"
+                    score_a: 7
+                    score_b: 7
+                    reasoning: "Both ask the screening question clearly."
+                    example: null
+                recommendation: "Response B is recommended for screening scenarios because it shows appropriate empathy before asking the sensitive question."
+                confidence_in_winner: 0.82
+                recommend_human_review: false
+                eval_id_a: "eval_1"
+                eval_id_b: "eval_2"
+        '400':
+          description: Bad request (validation, invalid context)
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Error' }
+        '408':
+          description: Request timeout
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Error' }
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Error' }
+
+  /compare/batch:
+    post:
+      operationId: compareBatch
+      summary: Batch A/B compare (same variant pair across multiple contexts)
+      description: |
+        Run multiple comparisons; returns per-context results and aggregate
+        (e.g. "Response A wins on 6/10, B on 3/10, tie on 1/10"). Use for
+        statistical summary across contexts.
+      tags:
+        - Comparison
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CompareBatchRequest'
+      responses:
+        '200':
+          description: Batch comparison success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompareBatchResult'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Error' }
+
+  /evaluate/batch:
+    post:
+      operationId: evaluateBatch
+      summary: Batch evaluate 100–10,000 responses (max 500 per request)
+      description: |
+        Evaluates an array of responses; returns individual scores plus aggregate statistics
+        (mean, std, percentiles per dimension), per agent_id / prompt_version / context_type,
+        flags summary, quality distribution (red/green zones), and anomalies (outliers, low confidence).
+        Cost-optimized with GPT-4o-mini and caching; target ~$0.015/response with 50%+ cache hit.
+        For 5000+ items use multiple batch requests (max 500 each) or stream=true for NDJSON streaming.
+
+        Cost estimation (with caching):
+        | Responses | Cache 0%   | Cache 50%  | Cache 70%  |
+        |-----------|------------|------------|------------|
+        | 100       | ~$1.50     | ~$0.75     | ~$0.45     |
+        | 500       | ~$7.50     | ~$3.75     | ~$2.25     |
+        | 1000      | ~$15.00    | ~$7.50     | ~$4.50     |
+
+        Latency (target): 1000 requests in ~5 min with 10-way concurrency (~300ms/response effective).
+      tags:
+        - Evaluation
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: stream
+          in: query
+          required: false
+          schema: { type: boolean, default: false }
+          description: If true, stream NDJSON of results as they complete (for very large batches).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BatchEvaluateRequest'
+            examples:
+              batch_10:
+                summary: 10 evaluations
+                value:
+                  batch_id: "batch_10"
+                  evaluations:
+                    - response: "So we'll mark that as no. Anything else?"
+                      directive: "Collect employment (yes/no)."
+                      metadata: { context_type: verification, agent_id: verification_agent }
+                    - response: "I hear you. In the last 12 months, have you run out of food?"
+                      metadata: { context_type: screening, agent_id: screening_agent }
+                    - response: "Got it. Is there anything else?"
+                    - response: "That's okay—you can skip any question."
+                    - response: "One more question we ask everyone."
+                    - response: "I'll record that. Anything else about work?"
+                    - response: "Fair question. We use it to see if we can connect you with help."
+                    - response: "So that's three people in the household."
+                    - response: "In the last 12 months, have you had trouble paying rent?"
+                    - response: "We'll move to the next one."
+              batch_100:
+                summary: 100 evaluations (abbreviated)
+                value:
+                  batch_id: "batch_100"
+                  evaluations: []  # 100 x EvaluationRequest
+              batch_1000:
+                summary: 1000 evaluations (split into 2 x 500 requests)
+                value:
+                  batch_id: "batch_1k_part1"
+                  evaluations: []  # 500 x EvaluationRequest
+      responses:
+        '200':
+          description: Batch evaluation success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchEvaluationResult'
+        '400':
+          description: Bad request (e.g. evaluations length > 500)
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Error' }
+        '408':
+          description: Timeout (partial results may be returned if streaming)
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Error' }
+
+  /evaluate:
+    post:
+      operationId: evaluateResponse
+      summary: Evaluate a single AI response
+      description: |
+        Accepts an evaluation request (response + optional context), invokes the LLM judge,
+        and returns dimension scores, overall score, flags, and suggestions.
+        Latency target <5s. On LLM timeout, returns cached result if available.
+      tags:
+        - Evaluation
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EvaluationRequest'
+            examples:
+              minimal:
+                summary: Minimal (required fields only)
+                value:
+                  response: "So right now you're not employed—we'll mark that as no. Is there anything else about work you want to add?"
+              full:
+                summary: Full request with context and directive
+                value:
+                  response: "I hear you, that can be really hard. One more question we ask everyone—in the last 12 months, have you or anyone in your household run out of food before you could get more?"
+                  directive: "Ask the standard food security screening question clearly; allow user to answer."
+                  conversation_history:
+                    turns:
+                      - role: user
+                        content: "I've been really stressed about bills."
+                      - role: assistant
+                        content: "I hear you. One more thing we ask everyone—in the last 12 months, have you or anyone in your household run out of food?"
+                  user_input: "I've been really stressed about bills."
+                  metadata:
+                    context_type: screening
+                    agent_id: screening_agent
+                    prompt_version: v2.1
+      responses:
+        '200':
+          description: Evaluation success (or cached result on timeout fallback)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EvaluationResult'
+              examples:
+                success:
+                  summary: Fresh evaluation
+                  value:
+                    eval_id: "eval_a1b2c3d4"
+                    dimensions:
+                      task_completion: { score: 9, reasoning: "Directive met; employment recorded.", confidence: 0.85 }
+                      empathy: { score: 7, reasoning: "Acknowledgment present and appropriate.", confidence: 0.75 }
+                      conciseness: { score: 9, reasoning: "Economical; no filler.", confidence: 0.9 }
+                      naturalness: { score: 8, reasoning: "Conversational; minor formality.", confidence: 0.8 }
+                      safety: { score: 10, reasoning: "No concerns; boundaries clear.", confidence: 0.95 }
+                      clarity: { score: 9, reasoning: "Crystal clear; no jargon.", confidence: 0.85 }
+                    overall_score: 8.5
+                    flags: []
+                    suggestions: []
+                cached:
+                  summary: Cached result (e.g. after LLM timeout)
+                  value:
+                    eval_id: "eval_x9y8z7"
+                    source: "cache"
+                    cached_at: "2025-02-06T14:23:00Z"
+                    dimensions: {}
+                    overall_score: 8.0
+                    flags: []
+                    suggestions: []
+        '400':
+          description: Bad request (validation failure, unknown context_type)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                detail: "response is required and cannot be null"
+                code: "validation_error"
+        '408':
+          description: Request timeout (LLM did not respond in time); may return cached result in body with source=cache
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/EvaluationResult'
+                  - $ref: '#/components/schemas/Error'
+        '500':
+          description: Server error (e.g. LLM parse failure, internal error)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                detail: "LLM response could not be parsed after retry."
+                code: "parse_error"
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Service-to-service Bearer token
+
+  schemas:
+    EvaluationRequest:
+      description: Input from Phase 1.1 schema (EvaluateRequest) plus optional directive
+      type: object
+      required:
+        - response
+      properties:
+        response:
+          type: string
+          minLength: 1
+          maxLength: 5000
+          description: LLM response to evaluate (required)
+        directive:
+          type: string
+          maxLength: 500
+          description: "E.g. 'Collect whether the member is employed (yes/no).' Used by judge prompt."
+        conversation_history:
+          $ref: '#/components/schemas/ConversationHistory'
+        metadata:
+          $ref: '#/components/schemas/EvaluationMetadata'
+        user_input:
+          type: string
+          maxLength: 2000
+          nullable: true
+      additionalProperties: false
+
+    ConversationHistory:
+      type: object
+      required: [turns]
+      properties:
+        turns:
+          type: array
+          minItems: 3
+          maxItems: 20
+          items:
+            $ref: '#/components/schemas/ConversationTurn'
+      additionalProperties: false
+
+    ConversationTurn:
+      type: object
+      required: [role, content]
+      properties:
+        role: { type: string, enum: [user, assistant] }
+        content: { type: string, minLength: 1, maxLength: 2000 }
+        timestamp: { type: string, format: date-time, nullable: true }
+        agent_id: { type: string, maxLength: 64, nullable: true }
+        prompt_version: { type: string, maxLength: 32, nullable: true }
+      additionalProperties: false
+
+    EvaluationMetadata:
+      type: object
+      properties:
+        agent_id: { type: string, enum: [survey_agent, support_agent, verification_agent, screening_agent, clarification_agent, triage_agent], nullable: true }
+        prompt_version: { type: string, nullable: true }
+        model: { type: string, maxLength: 128, nullable: true }
+        language_detected: { type: string, maxLength: 32, nullable: true }
+        context_type: { type: string, enum: [verification, screening, clarification, follow_up, triage, intake, referral], nullable: true }
+      additionalProperties: false
+
+    EvaluationResult:
+      description: Evaluation result with scores, reasoning, flags, suggestions; optional cache/source fields
+      type: object
+      required: [eval_id, dimensions, overall_score, flags, suggestions]
+      properties:
+        eval_id:
+          type: string
+          description: Unique id for audit trail
+        source:
+          type: string
+          enum: [live, cache]
+          description: "live = fresh LLM result; cache = returned from cache (e.g. on timeout)"
+          default: live
+        cached_at:
+          type: string
+          format: date-time
+          description: Set when source=cache
+          nullable: true
+        dimensions:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/DimensionScore'
+          description: Keys = task_completion, empathy, conciseness, naturalness, safety, clarity
+        overall_score:
+          type: number
+          minimum: 0
+          maximum: 10
+          description: Context-weighted aggregate; rounded to 0.5
+        flags:
+          type: array
+          items:
+            $ref: '#/components/schemas/EvaluationFlag'
+        suggestions:
+          type: array
+          maxItems: 3
+          items: { type: string }
+      additionalProperties: false
+
+    DimensionScore:
+      type: object
+      required: [score, reasoning, confidence]
+      properties:
+        score: { type: integer, minimum: 1, maximum: 10 }
+        reasoning: { type: string, minLength: 15, maxLength: 200 }
+        confidence: { type: number, minimum: 0, maximum: 1 }
+      additionalProperties: false
+
+    EvaluationFlag:
+      type: object
+      required: [code, message, severity]
+      properties:
+        code: { type: string, maxLength: 64 }
+        message: { type: string, maxLength: 256 }
+        severity: { type: string, enum: [low, medium, high, critical] }
+      additionalProperties: false
+
+    Error:
+      type: object
+      required: [detail]
+      properties:
+        detail: { type: string }
+        code: { type: string, description: "e.g. validation_error, timeout, parse_error, unknown_context" }
+      additionalProperties: false
+
+    CompareRequest:
+      type: object
+      required: [response_a, response_b]
+      properties:
+        context:
+          $ref: '#/components/schemas/CompareContext'
+        response_a: { type: string, minLength: 1, maxLength: 5000 }
+        response_b: { type: string, minLength: 1, maxLength: 5000 }
+      additionalProperties: false
+
+    CompareContext:
+      type: object
+      properties:
+        directive: { type: string, maxLength: 500, nullable: true }
+        conversation_history: { $ref: '#/components/schemas/ConversationHistory', nullable: true }
+        metadata: { $ref: '#/components/schemas/EvaluationMetadata', nullable: true }
+        user_input: { type: string, maxLength: 2000, nullable: true }
+      additionalProperties: false
+
+    DimensionComparison:
+      type: object
+      required: [dimension, winner, score_a, score_b, reasoning]
+      properties:
+        dimension: { type: string }
+        winner: { type: string, enum: [a, b, tie] }
+        score_a: { type: integer, minimum: 1, maximum: 10 }
+        score_b: { type: integer, minimum: 1, maximum: 10 }
+        reasoning: { type: string }
+        example: { type: string, nullable: true, description: "Quote from winning response" }
+      additionalProperties: false
+
+    ComparisonResult:
+      type: object
+      required: [compare_id, winner, overall_winner, dimension_comparisons, recommendation, confidence_in_winner]
+      properties:
+        compare_id: { type: string }
+        winner: { type: string, enum: [a, b, tie] }
+        overall_winner: { type: string, enum: [a, b, tie] }
+        dimension_comparisons:
+          type: array
+          items: { $ref: '#/components/schemas/DimensionComparison' }
+        recommendation: { type: string }
+        confidence_in_winner: { type: number, minimum: 0, maximum: 1 }
+        recommend_human_review: { type: boolean, default: false }
+        eval_id_a: { type: string }
+        eval_id_b: { type: string }
+      additionalProperties: false
+
+    CompareBatchRequest:
+      type: object
+      required: [comparisons]
+      properties:
+        comparisons:
+          type: array
+          items: { $ref: '#/components/schemas/CompareRequest' }
+      additionalProperties: false
+
+    CompareBatchResult:
+      type: object
+      required: [results, aggregate]
+      properties:
+        results:
+          type: array
+          items: { $ref: '#/components/schemas/ComparisonResult' }
+        aggregate:
+          type: object
+          description: "a_wins, b_wins, ties, total, a_win_pct, b_win_pct, overall_recommendation"
+          properties:
+            a_wins: { type: integer }
+            b_wins: { type: integer }
+            ties: { type: integer }
+            total: { type: integer }
+            a_win_pct: { type: number }
+            b_win_pct: { type: number }
+            overall_recommendation: { type: string }
+      additionalProperties: false
+
+    BatchEvaluateRequest:
+      type: object
+      required: [evaluations]
+      properties:
+        evaluations:
+          type: array
+          minItems: 1
+          maxItems: 500
+          items: { $ref: '#/components/schemas/EvaluationRequest' }
+        batch_id: { type: string, maxLength: 128, nullable: true }
+      additionalProperties: false
+
+    DimensionStats:
+      type: object
+      required: [mean, std, min, p25, median, p75, max]
+      properties:
+        mean: { type: number }
+        std: { type: number }
+        min: { type: number }
+        p25: { type: number }
+        median: { type: number }
+        p75: { type: number }
+        max: { type: number }
+      additionalProperties: false
+
+    BatchEvaluationResult:
+      type: object
+      required: [individual_scores, aggregate_stats, flags_summary, quality_distribution, metadata]
+      properties:
+        individual_scores:
+          type: array
+          items: { $ref: '#/components/schemas/EvaluationResult' }
+        aggregate_stats: { $ref: '#/components/schemas/AggregateStats' }
+        flags_summary: { $ref: '#/components/schemas/FlagsSummary' }
+        quality_distribution: { $ref: '#/components/schemas/QualityDistribution' }
+        anomalies:
+          type: array
+          items: { $ref: '#/components/schemas/AnomalyRecord' }
+        metadata: { $ref: '#/components/schemas/BatchMetadata' }
+      additionalProperties: false
+
+    AggregateStats:
+      type: object
+      properties:
+        dimensions: { type: object }
+        overall_score: { $ref: '#/components/schemas/DimensionStats' }
+        by_agent_id: { type: object }
+        by_prompt_version: { type: object }
+        by_context_type: { type: object }
+      additionalProperties: false
+
+    FlagsSummary:
+      type: object
+      properties:
+        total_flagged: { type: integer }
+        by_code: { type: object }
+        by_severity: { type: object }
+      additionalProperties: false
+
+    QualityDistribution:
+      type: object
+      properties:
+        histogram: { type: object }
+        red_zone_count: { type: integer }
+        green_zone_count: { type: integer }
+        red_zone_pct: { type: number }
+        green_zone_pct: { type: number }
+      additionalProperties: false
+
+    AnomalyRecord:
+      type: object
+      properties:
+        index: { type: integer }
+        eval_id: { type: string }
+        anomaly_type: { type: string }
+        dimension: { type: string, nullable: true }
+        value: { type: number, nullable: true }
+        message: { type: string }
+      additionalProperties: false
+
+    BatchMetadata:
+      type: object
+      properties:
+        batch_id: { type: string, nullable: true }
+        timestamp: { type: string }
+        total_evaluated: { type: integer }
+        cache_hits: { type: integer }
+        cache_misses: { type: integer }
+        cache_hit_rate: { type: number }
+        total_cost_usd: { type: number }
+        avg_latency_ms: { type: number }
+        warnings: { type: array, items: { type: string } }
+        errors: { type: array, items: { type: string } }
+      additionalProperties: false
+
+    ImproveRequest:
+      type: object
+      required: [response]
+      properties:
+        context: { $ref: '#/components/schemas/CompareContext', nullable: true }
+        response: { type: string, minLength: 1, maxLength: 5000 }
+        target_dimensions:
+          type: array
+          items: { type: string, enum: [task_completion, empathy, conciseness, naturalness, safety, clarity] }
+          maxItems: 6
+          nullable: true
+        num_variants: { type: integer, minimum: 1, maximum: 3, default: 1 }
+      additionalProperties: false
+
+    ChangeRecord:
+      type: object
+      required: [category, dimension, description]
+      properties:
+        category: { type: string, enum: [lexical, structural, additive, subtractive] }
+        dimension: { type: string }
+        original_text: { type: string, nullable: true }
+        improved_text: { type: string, nullable: true }
+        description: { type: string }
+      additionalProperties: false
+
+    ImprovementVariant:
+      type: object
+      properties:
+        variant_id: { type: string }
+        style: { type: string }
+        improved_response: { type: string }
+        predicted_scores: { type: object }
+        changes_made: { type: array, items: { $ref: '#/components/schemas/ChangeRecord' } }
+        confidence_in_improvement: { type: number }
+      additionalProperties: false
+
+    ImprovementResult:
+      type: object
+      required: [original_response, improved_response, confidence_in_improvement]
+      properties:
+        original_response: { type: string }
+        original_scores: { type: object }
+        improved_response: { type: string }
+        predicted_scores: { type: object }
+        changes_made: { type: array, items: { $ref: '#/components/schemas/ChangeRecord' } }
+        confidence_in_improvement: { type: number, minimum: 0, maximum: 1 }
+        recommend_human_review: { type: boolean, default: false }
+        variants: { type: array, items: { $ref: '#/components/schemas/ImprovementVariant' } }
+        eval_id_original: { type: string }
+        eval_id_improved: { type: string }
+      additionalProperties: false

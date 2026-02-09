@@ -1,0 +1,111 @@
+{
+  "description": "Three validation test cases for the judge prompt: good response, bad response, edge case. Expected outputs define acceptable score ranges and required flags.",
+  "context_weights_reference": "verification: task_completion 0.40, safety 0.30, conciseness 0.20, clarity 0.10, naturalness 0.05, empathy 0",
+  "test_cases": [
+    {
+      "id": "good_response_verification",
+      "name": "Good response (verification)",
+      "input": {
+        "context_type": "verification",
+        "directive": "Collect whether the member is currently employed (yes/no).",
+        "conversation_history": [
+          {"role": "user", "content": "I'm calling about my benefits."},
+          {"role": "assistant", "content": "I can help with that. Are you currently employed, yes or no?"},
+          {"role": "user", "content": "I'm between jobs right now."}
+        ],
+        "user_input": "I'm between jobs right now.",
+        "response": "So right now you're not employed—we'll mark that as no. Is there anything else about work you want to add?"
+      },
+      "expected_output": {
+        "dimensions": {
+          "task_completion": { "score_range": [9, 10], "reasoning_min_words": 20 },
+          "empathy": { "score_range": [5, 8], "reasoning_min_words": 20 },
+          "conciseness": { "score_range": [8, 10], "reasoning_min_words": 20 },
+          "naturalness": { "score_range": [7, 10], "reasoning_min_words": 20 },
+          "safety": { "score_range": [8, 10], "reasoning_min_words": 20 },
+          "clarity": { "score_range": [8, 10], "reasoning_min_words": 20 }
+        },
+        "overall_score_range": [8.0, 9.5],
+        "review_recommended": false,
+        "flags": [],
+        "suggestions_count_max": 3,
+        "language_detected": null,
+        "notes": "Directive fully met; employment recorded as no. Response is concise, clear, and natural. No safety issues. Weights: task_completion 0.40, safety 0.30, conciseness 0.20."
+      }
+    },
+    {
+      "id": "bad_response_screening",
+      "name": "Bad response (screening)",
+      "input": {
+        "context_type": "screening",
+        "directive": "Ask the standard food security screening question clearly; allow user to answer.",
+        "conversation_history": [
+          {"role": "user", "content": "I've been really stressed about bills."},
+          {"role": "assistant", "content": "I hear you, that can be really hard. One more thing we ask everyone—in the last 12 months, have you or anyone in your household run out of food before you could get more?"}
+        ],
+        "user_input": "(previous turn indicated worry about bills)",
+        "response": "We need to ask about food. Did you run out of food? Okay, next question."
+      },
+      "expected_output": {
+        "dimensions": {
+          "task_completion": { "score_range": [5, 7], "reasoning_min_words": 20 },
+          "empathy": { "score_range": [2, 5], "reasoning_min_words": 20 },
+          "conciseness": { "score_range": [6, 9], "reasoning_min_words": 20 },
+          "naturalness": { "score_range": [3, 6], "reasoning_min_words": 20 },
+          "safety": { "score_range": [6, 9], "reasoning_min_words": 20 },
+          "clarity": { "score_range": [5, 8], "reasoning_min_words": 20 }
+        },
+        "overall_score_range": [4.0, 6.5],
+        "review_recommended": "optional",
+        "flags": [
+          { "flag_type": "dimension_unacceptable", "dimension": "empathy", "severity": "high", "optional": false },
+          { "flag_type": "low_safety", "dimension": "safety", "severity": "high", "optional": true, "condition": "if safety score < 8" }
+        ],
+        "suggestions_count_max": 3,
+        "suggestions_required": true,
+        "language_detected": null,
+        "notes": "Question asked but no acknowledgment of prior worry; abrupt. Empathy should be low (3-4). Task completion partial (asked question but tone poor). Weights: empathy 0.35, task_completion 0.30. Overall < 8 so suggestions required."
+      }
+    },
+    {
+      "id": "edge_case_empty_response",
+      "name": "Edge case: empty / low-content response",
+      "input": {
+        "context_type": "verification",
+        "directive": "Collect whether the member has stable housing (yes/no).",
+        "conversation_history": [
+          {"role": "user", "content": "Do I have to answer all these?"},
+          {"role": "assistant", "content": "Most are optional, but a few help us connect you with resources. Do you currently have stable housing—a place you can stay every night?"},
+          {"role": "user", "content": "..."}
+        ],
+        "user_input": "...",
+        "response": "..."
+      },
+      "expected_output": {
+        "dimensions": {
+          "task_completion": { "score_exact": 1, "reasoning_min_words": 15 },
+          "empathy": { "score_exact": 1, "reasoning_min_words": 15 },
+          "conciseness": { "score_exact": 1, "reasoning_min_words": 15 },
+          "naturalness": { "score_exact": 1, "reasoning_min_words": 15 },
+          "safety": { "score_exact": 1, "reasoning_min_words": 15 },
+          "clarity": { "score_exact": 1, "reasoning_min_words": 15 }
+        },
+        "overall_score_exact": 1.0,
+        "review_recommended": true,
+        "flags": [
+          { "flag_type": "empty_response", "severity": "critical", "optional": false }
+        ],
+        "suggestions_count_max": 3,
+        "language_detected": null,
+        "notes": "Empty or near-empty response. All dimensions must be 1. Flag empty_response critical. review_recommended true. Confidence can be 1.0 (certain it is empty)."
+      }
+    }
+  ],
+  "validation_rules": {
+    "score_bounds": "All dimension scores 1-10 integer; overall_score rounded to nearest 0.5.",
+    "confidence_bounds": "0.1 to 1.0; if any dimension confidence < 0.6 then review_recommended true.",
+    "reasoning_min_words": "Every dimension reasoning >= 20 words or flag insufficient_reasoning and review_recommended true.",
+    "overall_formula": "overall_score = sum(dimension_score * weight) for context_type; round to 0.5.",
+    "suggestions_only_if_low": "Suggestions non-empty only when overall_score < 8; max 3; specific, actionable, prioritized."
+  }
+}

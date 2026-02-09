@@ -1,0 +1,370 @@
+{
+  "description": "Calibration set expanded from eval_001, eval_002, eval_003. 20-30 cases with verification/screening/clarification coverage and length distribution.",
+  "version": "1.0",
+  "coverage_targets": {
+    "verification": "5-7",
+    "screening": "7-10",
+    "clarification": "5-7"
+  },
+  "length_distribution": {
+    "10-50 words": 5,
+    "50-150 words": 10,
+    "150-300 words": 8
+  },
+  "cases": [
+    {
+      "case_id": "eval_001",
+      "variant_of": null,
+      "expected_delta": null,
+      "context_type": "verification",
+      "word_count_band": "50-150",
+      "directive": "Collect whether the member is currently employed (yes/no).",
+      "conversation_history": [
+        {"role": "user", "content": "I'm calling about my benefits."},
+        {"role": "assistant", "content": "I can help with that. Are you currently employed, yes or no?"},
+        {"role": "user", "content": "I'm between jobs right now."}
+      ],
+      "user_input": "I'm between jobs right now.",
+      "response": "So right now you're not employed—we'll mark that as no. Is there anything else about work you want to add?"
+    },
+    {
+      "case_id": "eval_001_improvement",
+      "variant_of": "eval_001",
+      "expected_delta": "+0.5 to +1.5 (empathy)",
+      "context_type": "verification",
+      "word_count_band": "50-150",
+      "directive": "Collect whether the member is currently employed (yes/no).",
+      "conversation_history": [
+        {"role": "user", "content": "I'm calling about my benefits."},
+        {"role": "assistant", "content": "I can help with that. Are you currently employed, yes or no?"},
+        {"role": "user", "content": "I'm between jobs right now."}
+      ],
+      "user_input": "I'm between jobs right now.",
+      "response": "I hear that job hunting can be really stressful. So right now you're not employed—we'll mark that as no. Is there anything else about work you want to add?"
+    },
+    {
+      "case_id": "eval_001_degradation",
+      "variant_of": "eval_001",
+      "expected_delta": "-0.5 to -1.5 (task_completion)",
+      "context_type": "verification",
+      "word_count_band": "10-50",
+      "directive": "Collect whether the member is currently employed (yes/no).",
+      "conversation_history": [
+        {"role": "user", "content": "I'm between jobs right now."}
+      ],
+      "user_input": "I'm between jobs right now.",
+      "response": "Okay. Anything else you want to add?"
+    },
+    {
+      "case_id": "eval_001_minimal",
+      "variant_of": "eval_001",
+      "expected_delta": "±0.3",
+      "context_type": "verification",
+      "word_count_band": "50-150",
+      "directive": "Collect whether the member is currently employed (yes/no).",
+      "conversation_history": [
+        {"role": "user", "content": "I'm between jobs right now."}
+      ],
+      "user_input": "I'm between jobs right now.",
+      "response": "I'll record that as no. Is there anything else about work you want to add?"
+    },
+    {
+      "case_id": "eval_002",
+      "variant_of": null,
+      "expected_delta": null,
+      "context_type": "screening",
+      "word_count_band": "10-50",
+      "directive": "Ask the standard food security screening question clearly; allow user to answer.",
+      "conversation_history": [
+        {"role": "user", "content": "I've been really stressed about bills."},
+        {"role": "assistant", "content": "I hear you, that can be really hard. One more thing we ask everyone—in the last 12 months, have you or anyone in your household run out of food before you could get more?"}
+      ],
+      "user_input": "(previous turn indicated worry about bills)",
+      "response": "We need to ask about food. Did you run out of food? Okay, next question."
+    },
+    {
+      "case_id": "eval_002_improvement",
+      "variant_of": "eval_002",
+      "expected_delta": "+0.5 to +1.5 (empathy, naturalness)",
+      "context_type": "screening",
+      "word_count_band": "50-150",
+      "directive": "Ask the standard food security screening question clearly; allow user to answer.",
+      "conversation_history": [
+        {"role": "user", "content": "I've been really stressed about bills."}
+      ],
+      "user_input": "I've been really stressed about bills.",
+      "response": "I hear you, that can be really hard. One more question we ask everyone—in the last 12 months, have you or anyone in your household run out of food before you could get more?"
+    },
+    {
+      "case_id": "eval_002_degradation",
+      "variant_of": "eval_002",
+      "expected_delta": "-0.5 to -1.5 (empathy)",
+      "context_type": "screening",
+      "word_count_band": "10-50",
+      "directive": "Ask the standard food security screening question clearly; allow user to answer.",
+      "conversation_history": [
+        {"role": "user", "content": "I've been really stressed about bills."}
+      ],
+      "user_input": "I've been really stressed about bills.",
+      "response": "Did you run out of food? Yes or no."
+    },
+    {
+      "case_id": "eval_002_minimal",
+      "variant_of": "eval_002",
+      "expected_delta": "±0.3",
+      "context_type": "screening",
+      "word_count_band": "10-50",
+      "directive": "Ask the standard food security screening question clearly; allow user to answer.",
+      "conversation_history": [],
+      "user_input": "",
+      "response": "We need to ask about food. In the last 12 months, did you or anyone in your household run out of food? Okay, next question."
+    },
+    {
+      "case_id": "eval_003",
+      "variant_of": null,
+      "expected_delta": null,
+      "context_type": "verification",
+      "word_count_band": "10-50",
+      "directive": "Collect whether the member has stable housing (yes/no).",
+      "conversation_history": [
+        {"role": "user", "content": "Do I have to answer all these?"},
+        {"role": "assistant", "content": "Most are optional, but a few help us connect you with resources. Do you currently have stable housing—a place you can stay every night?"},
+        {"role": "user", "content": "..."}
+      ],
+      "user_input": "...",
+      "response": "..."
+    },
+    {
+      "case_id": "eval_003_near_empty",
+      "variant_of": "eval_003",
+      "expected_delta": "slightly above 1 (minimal content)",
+      "context_type": "verification",
+      "word_count_band": "10-50",
+      "directive": "Collect whether the member has stable housing (yes/no).",
+      "conversation_history": [
+        {"role": "user", "content": "Do I have to answer all these?"},
+        {"role": "assistant", "content": "Do you currently have stable housing?"},
+        {"role": "user", "content": "No."}
+      ],
+      "user_input": "No.",
+      "response": "Okay."
+    },
+    {
+      "case_id": "cal_ver_001",
+      "variant_of": null,
+      "expected_delta": null,
+      "context_type": "verification",
+      "word_count_band": "10-50",
+      "directive": "Collect number of people in household (integer).",
+      "conversation_history": [
+        {"role": "user", "content": "Just me and my two kids."}
+      ],
+      "user_input": "Just me and my two kids.",
+      "response": "So that's three people in the household—I'll record that. Anything else?"
+    },
+    {
+      "case_id": "cal_ver_002",
+      "variant_of": null,
+      "expected_delta": null,
+      "context_type": "verification",
+      "word_count_band": "50-150",
+      "directive": "Confirm mailing address.",
+      "conversation_history": [
+        {"role": "user", "content": "123 Oak St, Apt 4."}
+      ],
+      "user_input": "123 Oak St, Apt 4.",
+      "response": "Got it—123 Oak Street, Apartment 4. Is that correct? And is that the best address to send you mail?"
+    },
+    {
+      "case_id": "cal_scr_001",
+      "variant_of": null,
+      "expected_delta": null,
+      "context_type": "screening",
+      "word_count_band": "50-150",
+      "directive": "Ask housing stability screening question; allow user to answer.",
+      "conversation_history": [
+        {"role": "user", "content": "I'm not sure why you need all this."}
+      ],
+      "user_input": "I'm not sure why you need all this.",
+      "response": "Fair question. We use it to see if we can connect you with help—like housing or rental assistance. In the last 12 months, have you had trouble paying rent or been worried about losing your place?"
+    },
+    {
+      "case_id": "cal_scr_002",
+      "variant_of": null,
+      "expected_delta": null,
+      "context_type": "screening",
+      "word_count_band": "150-300",
+      "directive": "Ask transportation barrier question; show empathy if user discloses hardship.",
+      "conversation_history": [
+        {"role": "user", "content": "I lost my car last month. It's been really hard to get to appointments."}
+      ],
+      "user_input": "I lost my car last month. It's been really hard to get to appointments.",
+      "response": "I'm sorry to hear that—losing your car and then trying to get to appointments can be really stressful. We have a question that helps us see if we can help with rides or bus passes. In the last 12 months, has lack of transportation kept you from medical appointments, work, or getting things you need?"
+    },
+    {
+      "case_id": "cal_scr_003",
+      "variant_of": null,
+      "expected_delta": null,
+      "context_type": "screening",
+      "word_count_band": "50-150",
+      "directive": "Ask food security screening question.",
+      "conversation_history": [],
+      "user_input": "Sure, go ahead.",
+      "response": "One more question we ask everyone. In the last 12 months, have you or anyone in your household run out of food before you could get more? You can say yes, no, or skip."
+    },
+    {
+      "case_id": "cal_scr_004",
+      "variant_of": null,
+      "expected_delta": null,
+      "context_type": "screening",
+      "word_count_band": "50-150",
+      "directive": "Ask utility hardship screening question.",
+      "conversation_history": [
+        {"role": "user", "content": "We've had to choose between heat and groceries sometimes."}
+      ],
+      "user_input": "We've had to choose between heat and groceries sometimes.",
+      "response": "That sounds really difficult—no one should have to make that choice. We ask everyone: in the last 12 months, have you had to leave your heat or other utilities off because you couldn't pay? Yes, no, or skip."
+    },
+    {
+      "case_id": "cal_cla_001",
+      "variant_of": null,
+      "expected_delta": null,
+      "context_type": "clarification",
+      "word_count_band": "50-150",
+      "directive": "Address user's confusion about why we ask; then re-ask or continue.",
+      "conversation_history": [
+        {"role": "user", "content": "Why do you need to know that? I don't get it."}
+      ],
+      "user_input": "Why do you need to know that? I don't get it.",
+      "response": "Fair question. We use it to see if we can connect you with help, like food or benefits. It's optional—you can skip it. Do you want to answer, or skip to the next one?"
+    },
+    {
+      "case_id": "cal_cla_002",
+      "variant_of": null,
+      "expected_delta": null,
+      "context_type": "clarification",
+      "word_count_band": "150-300",
+      "directive": "Clarify what 'stable housing' means without being condescending.",
+      "conversation_history": [
+        {"role": "user", "content": "What do you mean by stable housing? I'm staying with my sister."}
+      ],
+      "user_input": "What do you mean by stable housing? I'm staying with my sister.",
+      "response": "Good question. By stable housing we mean a place you can stay most nights—so staying with your sister counts if you're there regularly and it's not temporary in a way that's uncertain. So in your case, would you say you have a stable place to stay, or are you between places right now?"
+    },
+    {
+      "case_id": "cal_cla_003",
+      "variant_of": null,
+      "expected_delta": null,
+      "context_type": "clarification",
+      "word_count_band": "50-150",
+      "directive": "Address user who said they don't want to answer; offer skip.",
+      "conversation_history": [
+        {"role": "user", "content": "I don't want to answer that."}
+      ],
+      "user_input": "I don't want to answer that.",
+      "response": "That's okay—you can skip any question. We'll move to the next one. In the last 12 months, have you had trouble paying for utilities?"
+    },
+    {
+      "case_id": "cal_cla_004",
+      "variant_of": null,
+      "expected_delta": null,
+      "context_type": "clarification",
+      "word_count_band": "150-300",
+      "directive": "Explain eligibility for programs without promising specific outcomes.",
+      "conversation_history": [
+        {"role": "user", "content": "If I say yes to food, do I get benefits right away?"}
+      ],
+      "user_input": "If I say yes to food, do I get benefits right away?",
+      "response": "I can't promise specific benefits—that depends on your situation and what's available in your area. What we do is use your answers to see if we can connect you with someone who can go over options with you. So your answers help us point you in the right direction. Do you want to go ahead and answer the food question?"
+    },
+    {
+      "case_id": "cal_scr_005",
+      "variant_of": null,
+      "expected_delta": null,
+      "context_type": "screening",
+      "word_count_band": "50-150",
+      "directive": "Ask employment/education screening question.",
+      "conversation_history": [
+        {"role": "user", "content": "I'm in school part-time."}
+      ],
+      "user_input": "I'm in school part-time.",
+      "response": "Thanks for sharing that. One question we ask: are you currently working, in school, or in a training program—or none of those? That helps us see what kinds of support might fit."
+    },
+    {
+      "case_id": "cal_scr_006",
+      "variant_of": null,
+      "expected_delta": null,
+      "context_type": "screening",
+      "word_count_band": "10-50",
+      "directive": "Ask single yes/no screening question (food).",
+      "conversation_history": [],
+      "user_input": "Okay.",
+      "response": "In the last 12 months, have you or anyone in your household run out of food? Yes or no."
+    },
+    {
+      "case_id": "cal_cla_005",
+      "variant_of": null,
+      "expected_delta": null,
+      "context_type": "clarification",
+      "word_count_band": "50-150",
+      "directive": "Re-ask after user gave unclear answer.",
+      "conversation_history": [
+        {"role": "user", "content": "Sometimes. It depends."}
+      ],
+      "user_input": "Sometimes. It depends.",
+      "response": "Got it—so it varies. For our records, would you say in the last 12 months that happened at least once, or not at all? We can put 'at least once' or 'not at all.'"
+    },
+    {
+      "case_id": "cal_ver_003",
+      "variant_of": null,
+      "expected_delta": null,
+      "context_type": "verification",
+      "word_count_band": "10-50",
+      "directive": "Collect yes/no: has a doctor said you have diabetes?",
+      "conversation_history": [
+        {"role": "user", "content": "Yes, a few years ago."}
+      ],
+      "user_input": "Yes, a few years ago.",
+      "response": "So we'll mark that as yes. Anything else about your health we should know?"
+    },
+    {
+      "case_id": "cal_ver_004",
+      "variant_of": null,
+      "expected_delta": null,
+      "context_type": "verification",
+      "word_count_band": "50-150",
+      "directive": "Verify preferred language for materials.",
+      "conversation_history": [
+        {"role": "user", "content": "Spanish if you have it."}
+      ],
+      "user_input": "Spanish if you have it.",
+      "response": "I'll note Spanish as your preferred language for materials. We'll do our best to send things in Spanish when we can. Is there anything else?"
+    },
+    {
+      "case_id": "cal_scr_007",
+      "variant_of": null,
+      "expected_delta": null,
+      "context_type": "screening",
+      "word_count_band": "150-300",
+      "directive": "Ask social connection / isolation screening; show empathy.",
+      "conversation_history": [
+        {"role": "user", "content": "I've been kind of alone since my wife passed."}
+      ],
+      "user_input": "I've been kind of alone since my wife passed.",
+      "response": "I'm really sorry to hear that—losing someone close is so hard, and it can make things feel really lonely. We ask everyone a question that helps us see if there are programs or groups that might help with connection. In the last 12 months, how often have you felt lonely or isolated—would you say often, sometimes, or rarely? You can skip if you'd rather not answer."
+    },
+    {
+      "case_id": "cal_cla_006",
+      "variant_of": null,
+      "expected_delta": null,
+      "context_type": "clarification",
+      "word_count_band": "150-300",
+      "directive": "Explain what happens after screening without promising outcomes.",
+      "conversation_history": [
+        {"role": "user", "content": "What happens after I answer these? Do I get help right away?"}
+      ],
+      "user_input": "What happens after I answer these? Do I get help right away?",
+      "response": "Good question. After we're done, we use your answers to see what might be a good fit—like food assistance, benefits, or other programs. We can't guarantee a specific program or timeline, but someone may follow up with you to go over options. Your answers just help us point you in the right direction. Do you want to continue with the next question?"
+    }
+  ]
+}

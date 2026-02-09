@@ -1,0 +1,31 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "HumanAnnotation",
+  "description": "Single rater annotation for one calibration case",
+  "type": "object",
+  "required": ["case_id", "rater_id", "context_type", "task_completion", "empathy", "conciseness", "naturalness", "safety", "clarity"],
+  "properties": {
+    "case_id": { "type": "string", "minLength": 1 },
+    "rater_id": { "type": "string", "minLength": 1 },
+    "context_type": { "enum": ["verification", "screening", "clarification", "follow_up", "triage", "intake", "referral"] },
+    "task_completion": { "type": "integer", "minimum": 1, "maximum": 10 },
+    "empathy": { "type": "integer", "minimum": 1, "maximum": 10 },
+    "conciseness": { "type": "integer", "minimum": 1, "maximum": 10 },
+    "naturalness": { "type": "integer", "minimum": 1, "maximum": 10 },
+    "safety": { "type": "integer", "minimum": 1, "maximum": 10 },
+    "clarity": { "type": "integer", "minimum": 1, "maximum": 10 },
+    "overall_score": { "type": "number", "minimum": 0, "maximum": 10 },
+    "context_weights_used": {
+      "type": "object",
+      "properties": {
+        "task_completion": { "type": "number", "minimum": 0, "maximum": 1 },
+        "empathy": { "type": "number", "minimum": 0, "maximum": 1 },
+        "conciseness": { "type": "number", "minimum": 0, "maximum": 1 },
+        "naturalness": { "type": "number", "minimum": 0, "maximum": 1 },
+        "safety": { "type": "number", "minimum": 0, "maximum": 1 },
+        "clarity": { "type": "number", "minimum": 0, "maximum": 1 }
+      }
+    },
+    "notes": { "type": "string" }
+  }
+}
