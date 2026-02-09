@@ -1,0 +1,32 @@
+{
+  "models": [
+    {
+      "model_id": "xgb_v1_latest",
+      "type": "xgboost",
+      "accuracy": 0.0,
+      "status": "active",
+      "created_at": "20260207_011951"
+    },
+    {
+      "model_id": "lstm_v1_latest",
+      "type": "lstm",
+      "accuracy": 0.0,
+      "status": "active",
+      "created_at": "20260207_011951"
+    },
+    {
+      "model_id": "ensemble_v1_latest",
+      "type": "ensemble",
+      "xgb_model_id": "xgb_v1_latest",
+      "lstm_model_id": "lstm_v1_latest",
+      "weights": {
+        "xgboost": 0.65,
+        "lstm": 0.35
+      },
+      "accuracy": 0.0,
+      "status": "active",
+      "created_at": "20260207_011951"
+    }
+  ],
+  "default_model_id": "ensemble_v1_latest"
+}

@@ -1,0 +1,46 @@
+{
+  "validation_summary": {
+    "total_records": 500,
+    "schema_valid": true,
+    "sequence_valid": true,
+    "correlation_valid": true,
+    "critical_issues": [],
+    "warnings": [],
+    "record_counts": {
+      "missing_required_fields": 0,
+      "timestamp_or_order_violations": 0,
+      "correlation_rule_violations": 0
+    }
+  },
+  "outcome_statistics": {
+    "completed": {
+      "avg_silence_ratio": 0.1103,
+      "avg_user_words": 1660.46,
+      "avg_tools_called": 1.73,
+      "count": 300
+    },
+    "abandoned": {
+      "avg_silence_ratio": 0.2554,
+      "avg_user_words": 9.41,
+      "avg_time_to_first_user_speech": 12.6,
+      "pct_silence_ratio_gt_05": 32.8,
+      "count": 125
+    },
+    "transferred": {
+      "avg_agent_speech_ratio": 0.8091,
+      "avg_call_duration": 270.64,
+      "count": 50
+    },
+    "error": {
+      "avg_call_duration": 53.68,
+      "pct_no_user_speech": 100.0,
+      "count": 25
+    }
+  },
+  "feature_feasibility": {
+    "can_compute_timing_features": true,
+    "can_compute_speech_dynamics": true,
+    "can_compute_engagement_metrics": true,
+    "issues_preventing_features": []
+  }
+}

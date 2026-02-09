@@ -1,0 +1,46 @@
+{
+  "ensemble_test_performance": {
+    "test_accuracy": 0.926,
+    "test_precision_macro": 0.864,
+    "test_recall_macro": 0.9412,
+    "test_f1_macro": 0.8899,
+    "improvement_over_xgb": "+3%",
+    "improvement_over_lstm": "+23%",
+    "xgb_only_on_this_test": {
+      "accuracy": 0.898,
+      "f1_macro": 0.8646
+    },
+    "lstm_only_on_this_test": {
+      "accuracy": 0.696,
+      "f1_macro": 0.4443
+    },
+    "test_samples": 500,
+    "note": "Computed on common test set (500 partial sequences, 80/20 split from 2500)."
+  },
+  "prediction_example": {
+    "call_id": "call_00323_p100",
+    "completion_percent": 100,
+    "actual_outcome": "abandoned",
+    "xgb_prediction": {
+      "outcome": "abandoned",
+      "confidence": 0.9945
+    },
+    "lstm_prediction": {
+      "outcome": "completed",
+      "confidence": 0.6205
+    },
+    "ensemble_prediction": {
+      "outcome": "abandoned",
+      "confidence": 0.7549,
+      "risk_score": 0.2451
+    },
+    "explanation": "Models disagree; ensemble voted."
+  },
+  "config": {
+    "weights": {
+      "xgboost": 0.65,
+      "lstm": 0.35
+    },
+    "test_samples": 500
+  }
+}

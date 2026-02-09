@@ -1,0 +1,23 @@
+pydantic>=2.0,<3
+pytest>=7.0
+click>=8.0
+plotly>=5.0
+fastapi>=0.100
+uvicorn[standard]>=0.22
+httpx>=0.24
+numpy==1.26.4
+scipy>=1.7
+sentence-transformers>=2.0
+transformers==4.40
+streamlit>=1.28
+requests>=2.28
+xgboost>=2.0.0
+scikit-learn>=1.2.0
+# Note: TensorFlow requires Python 3.9-3.12. Python 3.14 is not supported yet.
+# Solution: Use Python 3.12 or 3.13. You can install it via:
+#   brew install python@3.12
+#   python3.12 -m venv venv
+#   source venv/bin/activate
+#   pip install -r requirements.txt
+tensorflow>=2.15.0,<2.18.0
+openai>=1.0

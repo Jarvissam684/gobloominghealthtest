@@ -1,0 +1,50 @@
+=== Daily Model Performance Report ===
+Date: 2025-02-08
+Models: xgb_v1, lstm_v1, ensemble_v1
+
+Accuracy (last 24h):
+
+XGBoost: 0.82 (↓ -2% from baseline 0.84)
+LSTM: 0.76
+Ensemble: 0.83 (↓ -1% from baseline 0.84)
+
+Rolling 7-day accuracy: 82.50%
+Rolling 30-day accuracy: 83.10%
+
+Confidence Calibration:
+
+Mean predicted confidence: 0.81
+  (↓ from 0.84 yesterday)
+Confidence vs Accuracy gap: 0.02 (good)
+
+Feature Drift Alerts:
+
+  silence_ratio: mean 0.32 (↑ +0.02 from training mean 0.30) - NORMAL
+  user_talk_ratio: mean 0.38 (no change) - NORMAL
+  No critical drifts detected
+
+Class Distribution:
+
+  Completed: 58% (baseline 60%) - NORMAL
+  Abandoned: 27% (baseline 25%) - MINOR (within 10%)
+  Transferred: 10% (baseline 10%) - NORMAL
+  Error: 5% (baseline 5%) - NORMAL
+
+Latency (p95):
+
+  xgb_v1: 8ms
+  lstm_v1: 45ms
+  ensemble_v1: 65ms
+  (all <100ms, GOOD)
+
+Retraining Recommendation:
+
+  Status: NOT NEEDED (all metrics healthy)
+  Next check: 2025-02-15
+
+Recent Mispredictions (analysis):
+
+  Call_12345: predicted "completed" (0.78), actual "abandoned"
+    Reason: low user_talk_ratio (0.18) + high silence_ratio (0.55) = abandonment signals; model missed: early in call, didn't have time to fail
+  Call_12346: predicted "transferred" (0.65), actual "completed"
+    Reason: long agent speeches = transfer signal, but agent handling led to completion anyway. Improving model: need more "long_agent_speech_but_still_completed" examples

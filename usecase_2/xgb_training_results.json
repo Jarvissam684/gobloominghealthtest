@@ -1,0 +1,167 @@
+{
+  "model_id": "xgb_v1_20260209_183018",
+  "training_metadata": {
+    "total_samples": 500,
+    "train_samples": 400,
+    "val_samples": 50,
+    "test_samples": 50,
+    "class_distribution_train": {
+      "completed": 240,
+      "abandoned": 100,
+      "transferred": 40,
+      "error": 20
+    }
+  },
+  "hyperparameters": {
+    "max_depth": 5,
+    "learning_rate": 0.1,
+    "n_estimators": 100,
+    "subsample": 0.8,
+    "colsample_bytree": 0.8,
+    "objective": "multi:softprob",
+    "num_class": 4,
+    "early_stopping_rounds": 10,
+    "best_iteration": 99
+  },
+  "training_results": {
+    "cv_scores": [
+      0.9875,
+      1.0,
+      0.9875,
+      0.9875,
+      1.0
+    ],
+    "cv_mean": 0.9925,
+    "cv_stdev": 0.0061,
+    "final_n_estimators_used": 99,
+    "test_accuracy": 1.0,
+    "test_precision_macro": 1.0,
+    "test_recall_macro": 1.0,
+    "test_f1_macro": 1.0
+  },
+  "confusion_matrix": {
+    "completed": {
+      "completed": 30,
+      "abandoned": 0,
+      "transferred": 0,
+      "error": 0
+    },
+    "abandoned": {
+      "completed": 0,
+      "abandoned": 13,
+      "transferred": 0,
+      "error": 0
+    },
+    "transferred": {
+      "completed": 0,
+      "abandoned": 0,
+      "transferred": 5,
+      "error": 0
+    },
+    "error": {
+      "completed": 0,
+      "abandoned": 0,
+      "transferred": 0,
+      "error": 2
+    }
+  },
+  "feature_importance": [
+    {
+      "feature": "survey_completion_rate",
+      "importance": 22.2272,
+      "rank": 1
+    },
+    {
+      "feature": "user_words_trend",
+      "importance": 18.916,
+      "rank": 2
+    },
+    {
+      "feature": "cumulative_user_words",
+      "importance": 14.1956,
+      "rank": 3
+    },
+    {
+      "feature": "avg_silence_duration_sec",
+      "importance": 6.6681,
+      "rank": 4
+    },
+    {
+      "feature": "words_per_turn_user",
+      "importance": 5.4991,
+      "rank": 5
+    },
+    {
+      "feature": "silence_count",
+      "importance": 5.2066,
+      "rank": 6
+    },
+    {
+      "feature": "speech_entropy",
+      "importance": 2.9306,
+      "rank": 7
+    },
+    {
+      "feature": "total_duration_sec",
+      "importance": 2.8972,
+      "rank": 8
+    },
+    {
+      "feature": "time_to_first_tool_call_sec",
+      "importance": 2.4542,
+      "rank": 9
+    },
+    {
+      "feature": "time_to_first_user_speech_sec",
+      "importance": 2.0143,
+      "rank": 10
+    },
+    {
+      "feature": "words_per_turn_agent",
+      "importance": 1.9388,
+      "rank": 11
+    },
+    {
+      "feature": "silence_ratio",
+      "importance": 1.3974,
+      "rank": 12
+    },
+    {
+      "feature": "user_talk_ratio",
+      "importance": 1.3119,
+      "rank": 13
+    },
+    {
+      "feature": "agent_flexibility",
+      "importance": 1.2903,
+      "rank": 14
+    },
+    {
+      "feature": "agent_talk_ratio",
+      "importance": 0.5883,
+      "rank": 15
+    }
+  ],
+  "per_class_metrics": {
+    "completed": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    "abandoned": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    "transferred": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    "error": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    }
+  }
+}

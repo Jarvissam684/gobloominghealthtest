@@ -1,0 +1,852 @@
+{
+  "global_shap_importance": [
+    {
+      "feature": "survey_completion_rate",
+      "mean_abs_shap": 0.5925,
+      "rank": 1
+    },
+    {
+      "feature": "avg_silence_duration_sec",
+      "mean_abs_shap": 0.4671,
+      "rank": 2
+    },
+    {
+      "feature": "user_words_trend",
+      "mean_abs_shap": 0.3376,
+      "rank": 3
+    },
+    {
+      "feature": "speech_entropy",
+      "mean_abs_shap": 0.2473,
+      "rank": 4
+    },
+    {
+      "feature": "words_per_turn_agent",
+      "mean_abs_shap": 0.2104,
+      "rank": 5
+    },
+    {
+      "feature": "words_per_turn_user",
+      "mean_abs_shap": 0.2081,
+      "rank": 6
+    },
+    {
+      "feature": "agent_talk_ratio",
+      "mean_abs_shap": 0.1717,
+      "rank": 7
+    },
+    {
+      "feature": "time_to_first_user_speech_sec",
+      "mean_abs_shap": 0.103,
+      "rank": 8
+    },
+    {
+      "feature": "total_duration_sec",
+      "mean_abs_shap": 0.0953,
+      "rank": 9
+    },
+    {
+      "feature": "cumulative_user_words",
+      "mean_abs_shap": 0.0824,
+      "rank": 10
+    },
+    {
+      "feature": "silence_count",
+      "mean_abs_shap": 0.0673,
+      "rank": 11
+    },
+    {
+      "feature": "silence_ratio",
+      "mean_abs_shap": 0.0653,
+      "rank": 12
+    },
+    {
+      "feature": "time_to_first_tool_call_sec",
+      "mean_abs_shap": 0.0205,
+      "rank": 13
+    },
+    {
+      "feature": "day_of_week",
+      "mean_abs_shap": 0.019,
+      "rank": 14
+    },
+    {
+      "feature": "avg_response_latency_sec",
+      "mean_abs_shap": 0.0162,
+      "rank": 15
+    },
+    {
+      "feature": "agent_flexibility",
+      "mean_abs_shap": 0.0093,
+      "rank": 16
+    },
+    {
+      "feature": "tools_per_minute",
+      "mean_abs_shap": 0.0061,
+      "rank": 17
+    },
+    {
+      "feature": "user_talk_ratio",
+      "mean_abs_shap": 0.0054,
+      "rank": 18
+    },
+    {
+      "feature": "turn_count",
+      "mean_abs_shap": 0.0043,
+      "rank": 19
+    },
+    {
+      "feature": "agent_id",
+      "mean_abs_shap": 0.0039,
+      "rank": 20
+    },
+    {
+      "feature": "user_engagement_slope",
+      "mean_abs_shap": 0.0028,
+      "rank": 21
+    },
+    {
+      "feature": "time_of_day",
+      "mean_abs_shap": 0.001,
+      "rank": 22
+    },
+    {
+      "feature": "org_id",
+      "mean_abs_shap": 0.0001,
+      "rank": 23
+    },
+    {
+      "feature": "user_speech_trend",
+      "mean_abs_shap": 0.0,
+      "rank": 24
+    },
+    {
+      "feature": "interruption_count",
+      "mean_abs_shap": 0.0,
+      "rank": 25
+    },
+    {
+      "feature": "agent_response_latency_p75",
+      "mean_abs_shap": 0.0,
+      "rank": 26
+    },
+    {
+      "feature": "tools_called_count",
+      "mean_abs_shap": 0.0,
+      "rank": 27
+    },
+    {
+      "feature": "call_purpose",
+      "mean_abs_shap": 0.0,
+      "rank": 28
+    }
+  ],
+  "spearman_with_xgb_importance": 0.8624,
+  "class_specific_importance": {
+    "completed": [
+      {
+        "feature": "survey_completion_rate",
+        "mean_shap": -0.3807
+      },
+      {
+        "feature": "words_per_turn_user",
+        "mean_shap": -0.0988
+      },
+      {
+        "feature": "time_to_first_tool_call_sec",
+        "mean_shap": -0.0115
+      },
+      {
+        "feature": "avg_response_latency_sec",
+        "mean_shap": 0.0057
+      },
+      {
+        "feature": "avg_silence_duration_sec",
+        "mean_shap": -0.0033
+      },
+      {
+        "feature": "cumulative_user_words",
+        "mean_shap": 0.0024
+      },
+      {
+        "feature": "words_per_turn_agent",
+        "mean_shap": 0.0016
+      },
+      {
+        "feature": "tools_per_minute",
+        "mean_shap": -0.0005
+      },
+      {
+        "feature": "total_duration_sec",
+        "mean_shap": 0.0
+      },
+      {
+        "feature": "call_purpose",
+        "mean_shap": 0.0
+      },
+      {
+        "feature": "org_id",
+        "mean_shap": 0.0
+      },
+      {
+        "feature": "agent_id",
+        "mean_shap": 0.0
+      },
+      {
+        "feature": "tools_called_count",
+        "mean_shap": 0.0
+      },
+      {
+        "feature": "interruption_count",
+        "mean_shap": 0.0
+      },
+      {
+        "feature": "user_engagement_slope",
+        "mean_shap": 0.0
+      },
+      {
+        "feature": "agent_flexibility",
+        "mean_shap": 0.0
+      },
+      {
+        "feature": "time_of_day",
+        "mean_shap": 0.0
+      },
+      {
+        "feature": "speech_entropy",
+        "mean_shap": 0.0
+      },
+      {
+        "feature": "user_words_trend",
+        "mean_shap": 0.0
+      },
+      {
+        "feature": "user_speech_trend",
+        "mean_shap": 0.0
+      },
+      {
+        "feature": "silence_count",
+        "mean_shap": 0.0
+      },
+      {
+        "feature": "silence_ratio",
+        "mean_shap": 0.0
+      },
+      {
+        "feature": "user_talk_ratio",
+        "mean_shap": 0.0
+      },
+      {
+        "feature": "agent_talk_ratio",
+        "mean_shap": 0.0
+      },
+      {
+        "feature": "agent_response_latency_p75",
+        "mean_shap": 0.0
+      },
+      {
+        "feature": "time_to_first_user_speech_sec",
+        "mean_shap": 0.0
+      },
+      {
+        "feature": "turn_count",
+        "mean_shap": 0.0
+      },
+      {
+        "feature": "day_of_week",
+        "mean_shap": 0.0
+      }
+    ],
+    "abandoned": [
+      {
+        "feature": "user_words_trend",
+        "mean_shap": -0.4953
+      },
+      {
+        "feature": "words_per_turn_agent",
+        "mean_shap": -0.3918
+      },
+      {
+        "feature": "agent_talk_ratio",
+        "mean_shap": -0.263
+      },
+      {
+        "feature": "cumulative_user_words",
+        "mean_shap": -0.1037
+      },
+      {
+        "feature": "time_to_first_user_speech_sec",
+        "mean_shap": 0.067
+      },
+      {
+        "feature": "avg_silence_duration_sec",
+        "mean_shap": -0.0467
+      },
+      {
+        "feature": "words_per_turn_user",
+        "mean_shap": -0.0402
+      },
+      {
+        "feature": "turn_count",
+        "mean_shap": 0.0111
+      },
+      {
+        "feature": "total_duration_sec",
+        "mean_shap": 0.0051
+      },
+      {
+        "feature": "time_to_first_tool_call_sec",
+        "mean_shap": -0.0048
+      },
+      {
+        "feature": "agent_id",
+        "mean_shap": -0.0023
+      },
+      {
+        "feature": "user_talk_ratio",
+        "mean_shap": 0.0022
+      },
+      {
+        "feature": "silence_count",
+        "mean_shap": -0.0013
+      },
+      {
+        "feature": "silence_ratio",
+        "mean_shap": -0.0012
+      },
+      {
+        "feature": "day_of_week",
+        "mean_shap": -0.0002
+      },
+      {
+        "feature": "speech_entropy",
+        "mean_shap": 0.0
+      },
+      {
+        "feature": "user_speech_trend",
+        "mean_shap": 0.0
+      },
+      {
+        "feature": "user_engagement_slope",
+        "mean_shap": 0.0
+      },
+      {
+        "feature": "interruption_count",
+        "mean_shap": 0.0
+      },
+      {
+        "feature": "agent_response_latency_p75",
+        "mean_shap": 0.0
+      },
+      {
+        "feature": "tools_called_count",
+        "mean_shap": 0.0
+      },
+      {
+        "feature": "tools_per_minute",
+        "mean_shap": 0.0
+      },
+      {
+        "feature": "survey_completion_rate",
+        "mean_shap": 0.0
+      },
+      {
+        "feature": "avg_response_latency_sec",
+        "mean_shap": 0.0
+      },
+      {
+        "feature": "org_id",
+        "mean_shap": 0.0
+      },
+      {
+        "feature": "call_purpose",
+        "mean_shap": 0.0
+      },
+      {
+        "feature": "time_of_day",
+        "mean_shap": 0.0
+      },
+      {
+        "feature": "agent_flexibility",
+        "mean_shap": 0.0
+      }
+    ],
+    "transferred": [
+      {
+        "feature": "avg_silence_duration_sec",
+        "mean_shap": -0.7923
+      },
+      {
+        "feature": "silence_count",
+        "mean_shap": -0.1452
+      },
+      {
+        "feature": "silence_ratio",
+        "mean_shap": -0.0922
+      },
+      {
+        "feature": "words_per_turn_agent",
+        "mean_shap": -0.016
+      },
+      {
+        "feature": "agent_flexibility",
+        "mean_shap": -0.0156
+      },
+      {
+        "feature": "time_to_first_user_speech_sec",
+        "mean_shap": -0.0144
+      },
+      {
+        "feature": "words_per_turn_user",
+        "mean_shap": -0.0117
+      },
+      {
+        "feature": "time_to_first_tool_call_sec",
+        "mean_shap": -0.0082
+      },
+      {
+        "feature": "cumulative_user_words",
+        "mean_shap": -0.0067
+      },
+      {
+        "feature": "user_engagement_slope",
+        "mean_shap": -0.0061
+      },
+      {
+        "feature": "user_words_trend",
+        "mean_shap": -0.0032
+      },
+      {
+        "feature": "total_duration_sec",
+        "mean_shap": -0.0016
+      },
+      {
+        "feature": "user_talk_ratio",
+        "mean_shap": 0.0009
+      },
+      {
+        "feature": "org_id",
+        "mean_shap": -0.0001
+      },
+      {
+        "feature": "time_of_day",
+        "mean_shap": -0.0
+      },
+      {
+        "feature": "speech_entropy",
+        "mean_shap": 0.0
+      },
+      {
+        "feature": "turn_count",
+        "mean_shap": 0.0
+      },
+      {
+        "feature": "agent_talk_ratio",
+        "mean_shap": 0.0
+      },
+      {
+        "feature": "agent_response_latency_p75",
+        "mean_shap": 0.0
+      },
+      {
+        "feature": "interruption_count",
+        "mean_shap": 0.0
+      },
+      {
+        "feature": "avg_response_latency_sec",
+        "mean_shap": 0.0
+      },
+      {
+        "feature": "tools_called_count",
+        "mean_shap": 0.0
+      },
+      {
+        "feature": "tools_per_minute",
+        "mean_shap": 0.0
+      },
+      {
+        "feature": "survey_completion_rate",
+        "mean_shap": 0.0
+      },
+      {
+        "feature": "agent_id",
+        "mean_shap": 0.0
+      },
+      {
+        "feature": "call_purpose",
+        "mean_shap": 0.0
+      },
+      {
+        "feature": "user_speech_trend",
+        "mean_shap": 0.0
+      },
+      {
+        "feature": "day_of_week",
+        "mean_shap": 0.0
+      }
+    ],
+    "error": [
+      {
+        "feature": "speech_entropy",
+        "mean_shap": -0.625
+      },
+      {
+        "feature": "total_duration_sec",
+        "mean_shap": -0.1675
+      },
+      {
+        "feature": "avg_silence_duration_sec",
+        "mean_shap": -0.1463
+      },
+      {
+        "feature": "time_to_first_user_speech_sec",
+        "mean_shap": -0.0626
+      },
+      {
+        "feature": "silence_ratio",
+        "mean_shap": 0.0176
+      },
+      {
+        "feature": "day_of_week",
+        "mean_shap": 0.0136
+      },
+      {
+        "feature": "agent_talk_ratio",
+        "mean_shap": -0.0063
+      },
+      {
+        "feature": "user_talk_ratio",
+        "mean_shap": -0.0056
+      },
+      {
+        "feature": "words_per_turn_agent",
+        "mean_shap": 0.003
+      },
+      {
+        "feature": "agent_id",
+        "mean_shap": -0.0006
+      },
+      {
+        "feature": "time_of_day",
+        "mean_shap": -0.0004
+      },
+      {
+        "feature": "silence_count",
+        "mean_shap": 0.0
+      },
+      {
+        "feature": "call_purpose",
+        "mean_shap": 0.0
+      },
+      {
+        "feature": "org_id",
+        "mean_shap": 0.0
+      },
+      {
+        "feature": "survey_completion_rate",
+        "mean_shap": 0.0
+      },
+      {
+        "feature": "tools_per_minute",
+        "mean_shap": 0.0
+      },
+      {
+        "feature": "tools_called_count",
+        "mean_shap": 0.0
+      },
+      {
+        "feature": "cumulative_user_words",
+        "mean_shap": 0.0
+      },
+      {
+        "feature": "interruption_count",
+        "mean_shap": 0.0
+      },
+      {
+        "feature": "user_engagement_slope",
+        "mean_shap": 0.0
+      },
+      {
+        "feature": "agent_response_latency_p75",
+        "mean_shap": 0.0
+      },
+      {
+        "feature": "words_per_turn_user",
+        "mean_shap": 0.0
+      },
+      {
+        "feature": "turn_count",
+        "mean_shap": 0.0
+      },
+      {
+        "feature": "time_to_first_tool_call_sec",
+        "mean_shap": 0.0
+      },
+      {
+        "feature": "user_words_trend",
+        "mean_shap": 0.0
+      },
+      {
+        "feature": "user_speech_trend",
+        "mean_shap": 0.0
+      },
+      {
+        "feature": "avg_response_latency_sec",
+        "mean_shap": 0.0
+      },
+      {
+        "feature": "agent_flexibility",
+        "mean_shap": 0.0
+      }
+    ]
+  },
+  "sample_explanations": [
+    {
+      "call_id": "call_00002",
+      "actual_outcome": "completed",
+      "predicted_outcome": "completed",
+      "confidence": 0.9981,
+      "top_5_supporting_factors": [
+        {
+          "feature": "survey_completion_rate",
+          "value": 0.63,
+          "shap_contribution": 1.6785,
+          "direction": "supports prediction"
+        },
+        {
+          "feature": "words_per_turn_user",
+          "value": 261.2,
+          "shap_contribution": 0.5467,
+          "direction": "supports prediction"
+        },
+        {
+          "feature": "avg_response_latency_sec",
+          "value": 33.25,
+          "shap_contribution": 0.0645,
+          "direction": "supports prediction"
+        },
+        {
+          "feature": "time_to_first_tool_call_sec",
+          "value": 43.0,
+          "shap_contribution": 0.0424,
+          "direction": "supports prediction"
+        },
+        {
+          "feature": "words_per_turn_agent",
+          "value": 495.25,
+          "shap_contribution": 0.0206,
+          "direction": "supports prediction"
+        }
+      ],
+      "top_3_opposing_factors": []
+    },
+    {
+      "call_id": "call_00055",
+      "actual_outcome": "completed",
+      "predicted_outcome": "completed",
+      "confidence": 0.9981,
+      "top_5_supporting_factors": [
+        {
+          "feature": "survey_completion_rate",
+          "value": 0.62,
+          "shap_contribution": 1.6785,
+          "direction": "supports prediction"
+        },
+        {
+          "feature": "words_per_turn_user",
+          "value": 344.0,
+          "shap_contribution": 0.5467,
+          "direction": "supports prediction"
+        },
+        {
+          "feature": "avg_response_latency_sec",
+          "value": 10.5,
+          "shap_contribution": 0.0645,
+          "direction": "supports prediction"
+        },
+        {
+          "feature": "time_to_first_tool_call_sec",
+          "value": 3.0,
+          "shap_contribution": 0.0424,
+          "direction": "supports prediction"
+        },
+        {
+          "feature": "words_per_turn_agent",
+          "value": 323.5,
+          "shap_contribution": 0.0206,
+          "direction": "supports prediction"
+        }
+      ],
+      "top_3_opposing_factors": []
+    },
+    {
+      "call_id": "call_00330",
+      "actual_outcome": "abandoned",
+      "predicted_outcome": "abandoned",
+      "confidence": 0.997,
+      "top_5_supporting_factors": [
+        {
+          "feature": "user_words_trend",
+          "value": 2.9524,
+          "shap_contribution": 1.4893,
+          "direction": "supports prediction"
+        },
+        {
+          "feature": "words_per_turn_agent",
+          "value": 45.0,
+          "shap_contribution": 0.8061,
+          "direction": "supports prediction"
+        },
+        {
+          "feature": "agent_talk_ratio",
+          "value": 0.0207,
+          "shap_contribution": 0.5846,
+          "direction": "supports prediction"
+        },
+        {
+          "feature": "cumulative_user_words",
+          "value": 18,
+          "shap_contribution": 0.3739,
+          "direction": "supports prediction"
+        },
+        {
+          "feature": "time_to_first_user_speech_sec",
+          "value": 3.0,
+          "shap_contribution": 0.2286,
+          "direction": "supports prediction"
+        }
+      ],
+      "top_3_opposing_factors": [
+        {
+          "feature": "day_of_week",
+          "value": "tuesday",
+          "shap_contribution": -0.0003,
+          "direction": "opposes prediction"
+        }
+      ]
+    },
+    {
+      "call_id": "call_00361",
+      "actual_outcome": "abandoned",
+      "predicted_outcome": "abandoned",
+      "confidence": 0.993,
+      "top_5_supporting_factors": [
+        {
+          "feature": "user_words_trend",
+          "value": 1.7857,
+          "shap_contribution": 1.4106,
+          "direction": "supports prediction"
+        },
+        {
+          "feature": "agent_talk_ratio",
+          "value": 0.0144,
+          "shap_contribution": 0.7798,
+          "direction": "supports prediction"
+        },
+        {
+          "feature": "cumulative_user_words",
+          "value": 10,
+          "shap_contribution": 0.3629,
+          "direction": "supports prediction"
+        },
+        {
+          "feature": "words_per_turn_agent",
+          "value": 100.0,
+          "shap_contribution": 0.2482,
+          "direction": "supports prediction"
+        },
+        {
+          "feature": "avg_silence_duration_sec",
+          "value": 1.0,
+          "shap_contribution": 0.1224,
+          "direction": "supports prediction"
+        }
+      ],
+      "top_3_opposing_factors": [
+        {
+          "feature": "agent_id",
+          "value": "agent_h8",
+          "shap_contribution": -0.1144,
+          "direction": "opposes prediction"
+        },
+        {
+          "feature": "time_to_first_user_speech_sec",
+          "value": 27.0,
+          "shap_contribution": -0.0598,
+          "direction": "opposes prediction"
+        },
+        {
+          "feature": "day_of_week",
+          "value": "wednesday",
+          "shap_contribution": -0.0003,
+          "direction": "opposes prediction"
+        }
+      ]
+    },
+    {
+      "call_id": "call_00447",
+      "actual_outcome": "transferred",
+      "predicted_outcome": "transferred",
+      "confidence": 0.9835,
+      "top_5_supporting_factors": [
+        {
+          "feature": "avg_silence_duration_sec",
+          "value": 0.0,
+          "shap_contribution": 3.2888,
+          "direction": "supports prediction"
+        },
+        {
+          "feature": "silence_count",
+          "value": 0,
+          "shap_contribution": 0.4797,
+          "direction": "supports prediction"
+        },
+        {
+          "feature": "silence_ratio",
+          "value": 0.0,
+          "shap_contribution": 0.2037,
+          "direction": "supports prediction"
+        },
+        {
+          "feature": "cumulative_user_words",
+          "value": 316,
+          "shap_contribution": 0.0176,
+          "direction": "supports prediction"
+        },
+        {
+          "feature": "words_per_turn_user",
+          "value": 52.6667,
+          "shap_contribution": 0.0156,
+          "direction": "supports prediction"
+        }
+      ],
+      "top_3_opposing_factors": [
+        {
+          "feature": "words_per_turn_agent",
+          "value": 199.5,
+          "shap_contribution": -0.1094,
+          "direction": "opposes prediction"
+        },
+        {
+          "feature": "agent_flexibility",
+          "value": 1571.723,
+          "shap_contribution": -0.0646,
+          "direction": "opposes prediction"
+        },
+        {
+          "feature": "time_to_first_tool_call_sec",
+          "value": 56.0,
+          "shap_contribution": -0.039,
+          "direction": "opposes prediction"
+        }
+      ]
+    }
+  ],
+  "partial_dependence_summaries": {
+    "survey_completion_rate": "SHAP values are positive (support completion) when survey_completion_rate is high; negative or near-zero when low. Positive correlation\u2014more of this feature helps completion.",
+    "avg_silence_duration_sec": "SHAP values vary across the range (low/mid/high mean SHAP for completed: -0.016, 0.004, 0.003). Moderate or non-linear effect.",
+    "user_words_trend": "SHAP values vary across the range (low/mid/high mean SHAP for completed: 0.000, 0.000, 0.000). Moderate or non-linear effect.",
+    "speech_entropy": "SHAP values vary across the range (low/mid/high mean SHAP for completed: 0.000, 0.000, 0.000). Moderate or non-linear effect.",
+    "words_per_turn_agent": "SHAP values vary across the range (low/mid/high mean SHAP for completed: -0.021, 0.005, 0.021). Moderate or non-linear effect."
+  }
+}

@@ -1,0 +1,526 @@
+{
+  "completeness": {
+    "total_records": 500,
+    "expected_records": 500,
+    "records_with_nulls": 0,
+    "total_nulls": 0,
+    "nulls_by_feature": {},
+    "features_per_record": 28,
+    "status": "PASS"
+  },
+  "numeric_statistics": {
+    "total_duration_sec": {
+      "mean": 280.232,
+      "median": 272.5,
+      "stdev": 148.1584,
+      "min": 7.0,
+      "max": 580.0,
+      "p25": 150.0,
+      "p75": 398.0,
+      "zeros": 0,
+      "count": 500
+    },
+    "time_to_first_user_speech_sec": {
+      "mean": 171.02,
+      "median": 20.0,
+      "stdev": 346.3821,
+      "min": 3.0,
+      "max": 999.0,
+      "p25": 11.0,
+      "p75": 51.0,
+      "zeros": 0,
+      "count": 500
+    },
+    "time_to_first_tool_call_sec": {
+      "mean": 384.0,
+      "median": 57.0,
+      "stdev": 460.2669,
+      "min": 2.0,
+      "max": 999.0,
+      "p25": 22.0,
+      "p75": 999.0,
+      "zeros": 0,
+      "count": 500
+    },
+    "avg_response_latency_sec": {
+      "mean": 9.7226,
+      "median": 8.3333,
+      "stdev": 10.3043,
+      "min": 0.0,
+      "max": 55.5,
+      "p25": 0.0,
+      "p75": 15.8,
+      "zeros": 177,
+      "count": 500
+    },
+    "agent_response_latency_p75": {
+      "mean": 5.542,
+      "median": 0.0,
+      "stdev": 11.8829,
+      "min": 0.0,
+      "max": 78.0,
+      "p25": 0.0,
+      "p75": 0.0,
+      "zeros": 385,
+      "count": 500
+    },
+    "avg_silence_duration_sec": {
+      "mean": 5.3071,
+      "median": 4.5278,
+      "stdev": 7.439,
+      "min": 0.0,
+      "max": 53.9784,
+      "p25": 1.0,
+      "p75": 5.3776,
+      "zeros": 51,
+      "count": 500
+    },
+    "agent_talk_ratio": {
+      "mean": 0.1358,
+      "median": 0.0789,
+      "stdev": 0.1447,
+      "min": 0.0,
+      "max": 0.6818,
+      "p25": 0.034,
+      "p75": 0.1704,
+      "zeros": 27,
+      "count": 500
+    },
+    "user_talk_ratio": {
+      "mean": 0.0961,
+      "median": 0.0708,
+      "stdev": 0.1068,
+      "min": 0.0,
+      "max": 0.6761,
+      "p25": 0.0059,
+      "p75": 0.1377,
+      "zeros": 74,
+      "count": 500
+    },
+    "silence_ratio": {
+      "mean": 0.1377,
+      "median": 0.0733,
+      "stdev": 0.1974,
+      "min": 0.0,
+      "max": 0.923,
+      "p25": 0.0238,
+      "p75": 0.1374,
+      "zeros": 51,
+      "count": 500
+    },
+    "silence_count": {
+      "mean": 4.698,
+      "median": 5.0,
+      "stdev": 2.7384,
+      "min": 0.0,
+      "max": 13.0,
+      "p25": 3.0,
+      "p75": 6.0,
+      "zeros": 51,
+      "count": 500
+    },
+    "user_speech_trend": {
+      "mean": -0.4605,
+      "median": 0.0,
+      "stdev": 616.5794,
+      "min": -3928.0,
+      "max": 7512.0,
+      "p25": -105.9223,
+      "p75": 106.0607,
+      "zeros": 173,
+      "count": 500
+    },
+    "user_words_trend": {
+      "mean": 61.1931,
+      "median": 48.2439,
+      "stdev": 59.5549,
+      "min": 0.0,
+      "max": 257.6897,
+      "p25": 2.9524,
+      "p75": 104.5546,
+      "zeros": 74,
+      "count": 500
+    },
+    "speech_entropy": {
+      "mean": 2412.0132,
+      "median": 2688.3116,
+      "stdev": 1191.5588,
+      "min": 0.0,
+      "max": 4816.6239,
+      "p25": 1868.5633,
+      "p75": 3259.9626,
+      "zeros": 66,
+      "count": 500
+    },
+    "agent_flexibility": {
+      "mean": 1740.3608,
+      "median": 1964.9386,
+      "stdev": 1515.4083,
+      "min": 0.0,
+      "max": 5155.8564,
+      "p25": 0.0,
+      "p75": 3061.7685,
+      "zeros": 150,
+      "count": 500
+    },
+    "turn_count": {
+      "mean": 2.626,
+      "median": 2.0,
+      "stdev": 2.1564,
+      "min": 0.0,
+      "max": 12.0,
+      "p25": 1.0,
+      "p75": 4.0,
+      "zeros": 80,
+      "count": 500
+    },
+    "words_per_turn_user": {
+      "mean": 201.4169,
+      "median": 232.125,
+      "stdev": 166.6807,
+      "min": 0.0,
+      "max": 707.3333,
+      "p25": 10.0,
+      "p75": 332.2,
+      "zeros": 74,
+      "count": 500
+    },
+    "words_per_turn_agent": {
+      "mean": 229.9455,
+      "median": 225.8214,
+      "stdev": 159.0905,
+      "min": 0.0,
+      "max": 812.0,
+      "p25": 100.0,
+      "p75": 344.75,
+      "zeros": 27,
+      "count": 500
+    },
+    "user_engagement_slope": {
+      "mean": 61.1931,
+      "median": 48.2439,
+      "stdev": 59.5549,
+      "min": 0.0,
+      "max": 257.6897,
+      "p25": 2.9524,
+      "p75": 104.5546,
+      "zeros": 74,
+      "count": 500
+    },
+    "interruption_count": {
+      "mean": 0.044,
+      "median": 0.0,
+      "stdev": 0.2146,
+      "min": 0.0,
+      "max": 2.0,
+      "p25": 0.0,
+      "p75": 0.0,
+      "zeros": 479,
+      "count": 500
+    },
+    "cumulative_user_words": {
+      "mean": 1037.094,
+      "median": 797.5,
+      "stdev": 1035.2847,
+      "min": 0.0,
+      "max": 4386.0,
+      "p25": 18.0,
+      "p75": 1773.0,
+      "zeros": 74,
+      "count": 500
+    },
+    "tools_called_count": {
+      "mean": 1.08,
+      "median": 1.0,
+      "stdev": 1.0907,
+      "min": 0.0,
+      "max": 4.0,
+      "p25": 0.0,
+      "p75": 2.0,
+      "zeros": 179,
+      "count": 500
+    },
+    "tools_per_minute": {
+      "mean": 0.2566,
+      "median": 0.1593,
+      "stdev": 0.3324,
+      "min": 0.0,
+      "max": 2.6374,
+      "p25": 0.0,
+      "p75": 0.339,
+      "zeros": 179,
+      "count": 500
+    },
+    "survey_completion_rate": {
+      "mean": 0.3716,
+      "median": 0.395,
+      "stdev": 0.336,
+      "min": 0.0,
+      "max": 0.95,
+      "p25": 0.0,
+      "p75": 0.67,
+      "zeros": 200,
+      "count": 500
+    }
+  },
+  "outcome_separation": {
+    "completed": {
+      "avg_silence_ratio": 0.1103,
+      "avg_user_words": 1660.46,
+      "avg_turn_count": 3.68,
+      "avg_tools_called": 1.73,
+      "count": 300
+    },
+    "abandoned": {
+      "avg_silence_ratio": 0.2554,
+      "avg_user_words": 9.41,
+      "avg_turn_count": 1.34,
+      "avg_tools_called": 0.0,
+      "count": 125
+    },
+    "transferred": {
+      "avg_silence_ratio": 0.0,
+      "avg_user_words": 384.68,
+      "avg_turn_count": 0.84,
+      "avg_tools_called": 0.42,
+      "count": 50
+    },
+    "error": {
+      "avg_silence_ratio": 0.1536,
+      "avg_user_words": 0.0,
+      "avg_turn_count": 0.0,
+      "avg_tools_called": 0.0,
+      "count": 25
+    }
+  },
+  "outcome_separation_assessment": "Clear separation: outcome means differ across completed/abandoned/transferred/error (good for modeling).",
+  "multicollinearity": [
+    {
+      "feature1": "user_words_trend",
+      "feature2": "user_engagement_slope",
+      "correlation": 1.0
+    },
+    {
+      "feature1": "user_words_trend",
+      "feature2": "cumulative_user_words",
+      "correlation": 0.9142
+    },
+    {
+      "feature1": "user_engagement_slope",
+      "feature2": "cumulative_user_words",
+      "correlation": 0.9142
+    }
+  ],
+  "outliers": {
+    "unrealistic_values": 0,
+    "outlier_details": [],
+    "recommendations": [
+      "No unrealistic value outliers; data within expected bounds."
+    ]
+  },
+  "categorical_distribution": {
+    "agent_id": {
+      "agent_b2": 66,
+      "agent_c3": 62,
+      "agent_e5": 54,
+      "agent_a1": 68,
+      "agent_h8": 61,
+      "agent_d4": 72,
+      "agent_g7": 58,
+      "agent_f6": 59
+    },
+    "agent_id_outcomes": {
+      "agent_b2": {
+        "completed": 44,
+        "abandoned": 15,
+        "transferred": 3,
+        "error": 4
+      },
+      "agent_c3": {
+        "completed": 37,
+        "abandoned": 15,
+        "transferred": 9,
+        "error": 1
+      },
+      "agent_e5": {
+        "completed": 22,
+        "abandoned": 22,
+        "transferred": 7,
+        "error": 3
+      },
+      "agent_a1": {
+        "completed": 44,
+        "abandoned": 16,
+        "transferred": 5,
+        "error": 3
+      },
+      "agent_h8": {
+        "completed": 46,
+        "abandoned": 7,
+        "transferred": 5,
+        "error": 3
+      },
+      "agent_d4": {
+        "completed": 33,
+        "abandoned": 25,
+        "transferred": 9,
+        "error": 5
+      },
+      "agent_g7": {
+        "completed": 37,
+        "abandoned": 14,
+        "transferred": 4,
+        "error": 3
+      },
+      "agent_f6": {
+        "completed": 37,
+        "abandoned": 11,
+        "transferred": 8,
+        "error": 3
+      }
+    },
+    "org_id": {
+      "org_2": 157,
+      "org_1": 167,
+      "org_3": 176
+    },
+    "org_id_outcomes": {
+      "org_2": {
+        "completed": 97,
+        "abandoned": 36,
+        "transferred": 17,
+        "error": 7
+      },
+      "org_1": {
+        "completed": 98,
+        "abandoned": 47,
+        "transferred": 14,
+        "error": 8
+      },
+      "org_3": {
+        "completed": 105,
+        "abandoned": 42,
+        "transferred": 19,
+        "error": 10
+      }
+    },
+    "call_purpose": {
+      "billing": 136,
+      "sdoh_screening": 129,
+      "support": 121,
+      "appointment_scheduling": 114
+    },
+    "call_purpose_outcomes": {
+      "billing": {
+        "completed": 78,
+        "abandoned": 39,
+        "transferred": 13,
+        "error": 6
+      },
+      "sdoh_screening": {
+        "completed": 80,
+        "abandoned": 31,
+        "transferred": 11,
+        "error": 7
+      },
+      "support": {
+        "completed": 72,
+        "abandoned": 30,
+        "transferred": 12,
+        "error": 7
+      },
+      "appointment_scheduling": {
+        "completed": 70,
+        "abandoned": 25,
+        "transferred": 14,
+        "error": 5
+      }
+    },
+    "time_of_day": {
+      "evening": 127,
+      "afternoon": 124,
+      "morning": 130,
+      "night": 119
+    },
+    "time_of_day_outcomes": {
+      "evening": {
+        "completed": 71,
+        "abandoned": 31,
+        "transferred": 19,
+        "error": 6
+      },
+      "afternoon": {
+        "completed": 79,
+        "abandoned": 32,
+        "transferred": 9,
+        "error": 4
+      },
+      "morning": {
+        "completed": 75,
+        "abandoned": 32,
+        "transferred": 13,
+        "error": 10
+      },
+      "night": {
+        "completed": 75,
+        "abandoned": 30,
+        "transferred": 9,
+        "error": 5
+      }
+    },
+    "day_of_week": {
+      "tuesday": 65,
+      "sunday": 84,
+      "friday": 53,
+      "monday": 63,
+      "thursday": 91,
+      "wednesday": 77,
+      "saturday": 67
+    },
+    "day_of_week_outcomes": {
+      "tuesday": {
+        "completed": 40,
+        "abandoned": 13,
+        "transferred": 7,
+        "error": 5
+      },
+      "sunday": {
+        "completed": 51,
+        "abandoned": 25,
+        "transferred": 4,
+        "error": 4
+      },
+      "friday": {
+        "completed": 28,
+        "abandoned": 15,
+        "transferred": 7,
+        "error": 3
+      },
+      "monday": {
+        "completed": 42,
+        "abandoned": 13,
+        "transferred": 4,
+        "error": 4
+      },
+      "thursday": {
+        "completed": 53,
+        "abandoned": 22,
+        "transferred": 12,
+        "error": 4
+      },
+      "wednesday": {
+        "completed": 46,
+        "abandoned": 21,
+        "transferred": 7,
+        "error": 3
+      },
+      "saturday": {
+        "completed": 40,
+        "abandoned": 16,
+        "transferred": 9,
+        "error": 2
+      }
+    }
+  },
+  "ready_for_modeling": true
+}

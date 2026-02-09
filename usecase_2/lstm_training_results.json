@@ -1,0 +1,91 @@
+{
+  "model_id": "lstm_v1_20260209_183031",
+  "architecture": {
+    "embedding_dim": 16,
+    "lstm_units": 32,
+    "lstm_layers": 1,
+    "dropout": 0.3,
+    "dense_layer": 64,
+    "output_classes": 4,
+    "max_sequence_length": 50,
+    "num_event_types": 8
+  },
+  "training_metadata": {
+    "total_sequences": 2500,
+    "train_sequences": 1800,
+    "val_sequences": 200,
+    "test_sequences": 500,
+    "class_distribution": {
+      "completed": 1500,
+      "abandoned": 625,
+      "transferred": 250,
+      "error": 125
+    }
+  },
+  "confusion_matrix": {
+    "completed": {
+      "completed": 298,
+      "abandoned": 0,
+      "transferred": 2,
+      "error": 0
+    },
+    "abandoned": {
+      "completed": 125,
+      "abandoned": 0,
+      "transferred": 0,
+      "error": 0
+    },
+    "transferred": {
+      "completed": 0,
+      "abandoned": 0,
+      "transferred": 50,
+      "error": 0
+    },
+    "error": {
+      "completed": 25,
+      "abandoned": 0,
+      "transferred": 0,
+      "error": 0
+    }
+  },
+  "training_results": {
+    "epochs_trained": 22,
+    "final_train_loss": 0.8366,
+    "final_val_loss": 0.8183,
+    "test_accuracy": 0.696,
+    "test_precision_macro": 0.4067,
+    "test_recall_macro": 0.4983,
+    "test_f1_macro": 0.4443,
+    "convergence": "stable"
+  },
+  "per_class_metrics": {
+    "completed": {
+      "precision": 0.6652,
+      "recall": 0.9933,
+      "f1": 0.7968
+    },
+    "abandoned": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0
+    },
+    "transferred": {
+      "precision": 0.9615,
+      "recall": 1.0,
+      "f1": 0.9804
+    },
+    "error": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0
+    }
+  },
+  "completion_percent_analysis": {
+    "accuracy_at_20_percent": 0.6979,
+    "accuracy_at_40_percent": 0.7207,
+    "accuracy_at_60_percent": 0.6961,
+    "accuracy_at_80_percent": 0.7033,
+    "accuracy_at_100_percent": 0.66,
+    "trend": "declining"
+  }
+}

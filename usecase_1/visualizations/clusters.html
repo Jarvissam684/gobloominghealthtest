@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Prompt similarity clusters</title>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <style>
+    body { font-family: sans-serif; margin: 20px; }
+    .legend { margin-bottom: 16px; }
+    .legend span { margin-right: 16px; }
+    #graph { width: 100%; height: 600px; border: 1px solid #ccc; }
+    .node { cursor: pointer; }
+    .node:hover { stroke: #333; stroke-width: 2px; }
+    .link { stroke-opacity: 0.6; }
+    .tooltip { position: absolute; padding: 8px; background: #fff; border: 1px solid #ccc; border-radius: 4px; pointer-events: none; max-width: 400px; font-size: 12px; }
+  </style>
+</head>
+<body>
+  <h1>Prompt similarity clusters</h1>
+  <div class="legend">
+    <strong>Legend:</strong>
+    <span style="color:#e74c3c">Red = Tier1 (merge)</span>
+    <span style="color:#e67e22">Orange = Tier2 (review)</span>
+    <span style="color:#95a5a6">Gray = Tier3 (info)</span>
+    <span style="color:#bdc3c7">Light gray = No cluster</span>
+  </div>
+  <div id="graph"></div>
+  <div id="tooltip" class="tooltip" style="display:none;"></div>
+  <script>
+    const nodesData = [{"id": "common.error_handling", "tier": "None", "content": "When errors occur or confusion arises, remain calm and helpful. Offer alternatives."}, {"id": "common.error_recovery", "tier": "None", "content": "If something goes wrong or the user seems confused, acknowledge the issue calmly."}, {"id": "directive.confidentiality", "tier": "None", "content": "Do not repeat or store sensitive information beyond what is necessary."}, {"id": "form.field.prompt", "tier": "None", "content": "You need to collect: {{field_name}}. Ask the user for this information in a conversational way."}, {"id": "org.brand.voice", "tier": "None", "content": "Use the organization's approved tone and vocabulary in all interactions."}, {"id": "os.style.empathetic", "tier": "None", "content": "Show empathy and understanding in your responses. Acknowledge the user's feelings."}, {"id": "os.style.professional", "tier": "None", "content": "Maintain a professional, courteous demeanor. Be respectful and efficient. Use clear language."}, {"id": "os.style.warm", "tier": "None", "content": "Maintain a warm, friendly tone throughout the conversation. Use encouraging language."}, {"id": "receptionist.greeting", "tier": "None", "content": "Greet the caller warmly. Introduce yourself as {{agent_name}} from {{organization}}."}, {"id": "receptionist.handoff", "tier": "None", "content": "When transferring the call, explain who you are connecting them to and why."}, {"id": "survey.question.base", "tier": "None", "content": "Present the following question to the user naturally: {{question_text}}. Listen carefully to their response."}, {"id": "survey.question.with_options", "tier": "None", "content": "Ask the user this question: {{question_text}}. The valid responses are: {{options}}. Accept their answer if it reasonably matches."}];
+    const linksData = [];
+    const width = document.getElementById("graph").clientWidth || 800;
+    const height = 600;
+    const idToIndex = {};
+    nodesData.forEach((d, i) => idToIndex[d.id] = i);
+    const nodes = nodesData.map((d, i) => ({ ...d, index: i }));
+    const links = linksData.map(l => ({
+      source: idToIndex[l.source] ?? 0,
+      target: idToIndex[l.target] ?? 0,
+      similarity: l.similarity
+    }));
+    const simulation = d3.forceSimulation(nodes)
+      .force("link", d3.forceLink(links).id(d => d.index).distance(100))
+      .force("charge", d3.forceManyBody().strength(-120))
+      .force("center", d3.forceCenter(width/2, height/2));
+    const svg = d3.select("#graph").append("svg").attr("width", width).attr("height", height);
+    const g = svg.append("g");
+    const link = g.append("g").selectAll("line")
+      .data(links)
+      .join("line")
+      .attr("class", "link")
+      .attr("stroke-width", d => Math.max(1, d.similarity * 4));
+    const node = g.append("g").selectAll("circle")
+      .data(nodes)
+      .join("circle")
+      .attr("class", "node")
+      .attr("r", 8)
+      .attr("fill", d => {
+        const colors = { "Tier1": "#e74c3c", "Tier2": "#e67e22", "Tier3": "#95a5a6", "None": "#bdc3c7" };
+        return colors[d.tier] || "#bdc3c7";
+      })
+      .attr("stroke", "#333")
+      .attr("stroke-width", 1)
+      .on("mouseover", (e, d) => {
+        const tip = document.getElementById("tooltip");
+        tip.style.display = "block";
+        tip.style.left = (e.pageX + 10) + "px";
+        tip.style.top = (e.pageY + 10) + "px";
+        tip.innerHTML = "<b>" + d.id + "</b><br/>Tier: " + d.tier;
+      })
+      .on("mousemove", (e) => {
+        document.getElementById("tooltip").style.left = (e.pageX + 10) + "px";
+        document.getElementById("tooltip").style.top = (e.pageY + 10) + "px";
+      })
+      .on("mouseout", () => { document.getElementById("tooltip").style.display = "none"; })
+      .on("click", (e, d) => {
+        const tip = document.getElementById("tooltip");
+        tip.style.display = "block";
+        tip.innerHTML = "<b>" + d.id + "</b><br/>" + (d.content || "").replace(/</g, "&lt;");
+      })
+      .call(d3.drag()
+        .on("start", (e, d) => { e.subject.fx = d.x; e.subject.fy = d.y; })
+        .on("drag", (e, d) => { e.subject.fx = e.x; e.subject.fy = e.y; })
+        .on("end", (e, d) => { e.subject.fx = null; e.subject.fy = null; }));
+    simulation.on("tick", () => {
+      link.attr("x1", d => d.source.x).attr("y1", d => d.source.y)
+          .attr("x2", d => d.target.x).attr("y2", d => d.target.y);
+      node.attr("cx", d => d.x).attr("cy", d => d.y);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,395 @@
+{
+  "daily_accuracy": {
+    "2025-02-08": {
+      "accuracy": 0.6923076923076923,
+      "n": 65,
+      "by_model": {
+        "xgb_v1": {
+          "accuracy": 0.7,
+          "n": 20
+        },
+        "lstm_v1": {
+          "accuracy": 0.75,
+          "n": 20
+        },
+        "ensemble_v1": {
+          "accuracy": 0.64,
+          "n": 25
+        }
+      }
+    }
+  },
+  "rolling_7d_accuracy": 0.768,
+  "rolling_30d_accuracy": 0.768,
+  "confidence_distribution": {
+    "mean": 0.738,
+    "histogram": [
+      {
+        "bin": "0.0-0.2",
+        "count": 0
+      },
+      {
+        "bin": "0.2-0.4",
+        "count": 0
+      },
+      {
+        "bin": "0.4-0.6",
+        "count": 3
+      },
+      {
+        "bin": "0.6-0.8",
+        "count": 45
+      },
+      {
+        "bin": "0.8-1.0",
+        "count": 17
+      }
+    ],
+    "n": 65
+  },
+  "feature_drift": {
+    "total_duration_sec": {
+      "training_mean": 280.232,
+      "production_mean": 335.0615384615385,
+      "production_stdev": 148.34231482238607,
+      "drift_stdev": 0.3700737755101192,
+      "alert": false
+    },
+    "time_to_first_user_speech_sec": {
+      "training_mean": 171.02,
+      "production_mean": 21.923076923076923,
+      "production_stdev": 18.685500501567596,
+      "drift_stdev": -0.43044061190495436,
+      "alert": false
+    },
+    "time_to_first_tool_call_sec": {
+      "training_mean": 384.0,
+      "production_mean": 43.98461538461538,
+      "production_stdev": 33.960833689002264,
+      "drift_stdev": -0.7387352525575587,
+      "alert": false
+    },
+    "avg_response_latency_sec": {
+      "training_mean": 9.7226,
+      "production_mean": 14.313995384615385,
+      "production_stdev": 9.537496250797622,
+      "drift_stdev": 0.44558052314231783,
+      "alert": false
+    },
+    "agent_response_latency_p75": {
+      "training_mean": 5.542,
+      "production_mean": 8.276923076923078,
+      "production_stdev": 14.855724296670905,
+      "drift_stdev": 0.23015619730226444,
+      "alert": false
+    },
+    "avg_silence_duration_sec": {
+      "training_mean": 5.3071,
+      "production_mean": 4.974393846153846,
+      "production_stdev": 0.8107192889654173,
+      "drift_stdev": -0.044724580433681195,
+      "alert": false
+    },
+    "agent_talk_ratio": {
+      "training_mean": 0.1358,
+      "production_mean": 0.12266615384615384,
+      "production_stdev": 0.10312755101094369,
+      "drift_stdev": -0.09076604114613797,
+      "alert": false
+    },
+    "user_talk_ratio": {
+      "training_mean": 0.0961,
+      "production_mean": 0.15675846153846154,
+      "production_stdev": 0.11982918084610493,
+      "drift_stdev": 0.5679631230193027,
+      "alert": false
+    },
+    "silence_ratio": {
+      "training_mean": 0.1377,
+      "production_mean": 0.10827384615384615,
+      "production_stdev": 0.07825578823895014,
+      "drift_stdev": -0.14906866183461925,
+      "alert": false
+    },
+    "silence_count": {
+      "training_mean": 4.698,
+      "production_mean": 5.769230769230769,
+      "production_stdev": 2.5825999467991747,
+      "drift_stdev": 0.39118856603519164,
+      "alert": false
+    },
+    "user_speech_trend": {
+      "training_mean": -0.4605,
+      "production_mean": 170.41446153846155,
+      "production_stdev": 1043.1043723945827,
+      "drift_stdev": 0.2771337503952639,
+      "alert": false
+    },
+    "user_words_trend": {
+      "training_mean": 61.1931,
+      "production_mean": 111.78616307692307,
+      "production_stdev": 53.31702595446215,
+      "drift_stdev": 0.8495197385424721,
+      "alert": false
+    },
+    "speech_entropy": {
+      "training_mean": 2412.0132,
+      "production_mean": 3003.614889230769,
+      "production_stdev": 602.8077644450406,
+      "drift_stdev": 0.4964939113628042,
+      "alert": false
+    },
+    "agent_flexibility": {
+      "training_mean": 1740.3608,
+      "production_mean": 2158.492543076923,
+      "production_stdev": 1404.7631038250713,
+      "drift_stdev": 0.2759201880291425,
+      "alert": false
+    },
+    "turn_count": {
+      "training_mean": 2.626,
+      "production_mean": 3.4615384615384617,
+      "production_stdev": 1.831997002658978,
+      "drift_stdev": 0.38746914372957786,
+      "alert": false
+    },
+    "words_per_turn_user": {
+      "training_mean": 201.4169,
+      "production_mean": 336.69273692307695,
+      "production_stdev": 86.89509806424432,
+      "drift_stdev": 0.8115866859395056,
+      "alert": false
+    },
+    "words_per_turn_agent": {
+      "training_mean": 229.9455,
+      "production_mean": 344.2571646153846,
+      "production_stdev": 123.53065027881378,
+      "drift_stdev": 0.7185323109512172,
+      "alert": false
+    },
+    "user_engagement_slope": {
+      "training_mean": 61.1931,
+      "production_mean": 111.78616307692307,
+      "production_stdev": 53.31702595446215,
+      "drift_stdev": 0.8495197385424721,
+      "alert": false
+    },
+    "interruption_count": {
+      "training_mean": 0.044,
+      "production_mean": 0.07692307692307693,
+      "production_stdev": 0.31902217466658034,
+      "drift_stdev": 0.15341601548498102,
+      "alert": false
+    },
+    "cumulative_user_words": {
+      "training_mean": 1037.094,
+      "production_mean": 1921.1538461538462,
+      "production_stdev": 963.5822942903333,
+      "drift_stdev": 0.8539292101523824,
+      "alert": false
+    },
+    "tools_called_count": {
+      "training_mean": 1.08,
+      "production_mean": 1.8,
+      "production_stdev": 0.99537391505365,
+      "drift_stdev": 0.6601265242504814,
+      "alert": false
+    },
+    "tools_per_minute": {
+      "training_mean": 0.2566,
+      "production_mean": 0.41372,
+      "production_stdev": 0.31818999026948086,
+      "drift_stdev": 0.47268351383874846,
+      "alert": false
+    },
+    "survey_completion_rate": {
+      "training_mean": 0.3716,
+      "production_mean": 0.6195384615384616,
+      "production_stdev": 0.18773492580461393,
+      "drift_stdev": 0.7379120879120881,
+      "alert": false
+    }
+  },
+  "class_distribution": {
+    "distribution": {
+      "completed": 100.0,
+      "abandoned": 0.0,
+      "transferred": 0.0,
+      "error": 0.0
+    },
+    "alerts": [
+      {
+        "outcome": "completed",
+        "production_pct": 100.0,
+        "baseline_pct": 60.0,
+        "diff": 40.0
+      },
+      {
+        "outcome": "abandoned",
+        "production_pct": 0.0,
+        "baseline_pct": 25.0,
+        "diff": -25.0
+      }
+    ],
+    "n": 65
+  },
+  "latency_p95_by_model": {
+    "xgb_v1": 11.8,
+    "lstm_v1": 55.1,
+    "ensemble_v1": 65.0
+  },
+  "retraining_triggers": {
+    "retrain_needed": true,
+    "reasons": [
+      "Accuracy (7-day) 76.80% below 0.79",
+      "Class distribution shifted >15% from baseline"
+    ],
+    "accuracy_below": true,
+    "feature_drift_count": 0,
+    "class_drift_over_15": true,
+    "latency_bad": false,
+    "new_agent_or_org": false
+  },
+  "suggested_calls_to_add": [
+    {
+      "call_id": "call_00003",
+      "predicted": "abandoned",
+      "actual": "completed",
+      "confidence": 0.69,
+      "reason": "prediction mismatch"
+    },
+    {
+      "call_id": "call_00007",
+      "predicted": "abandoned",
+      "actual": "completed",
+      "confidence": 0.71,
+      "reason": "prediction mismatch"
+    },
+    {
+      "call_id": "call_00008",
+      "predicted": "transferred",
+      "actual": "completed",
+      "confidence": 0.57,
+      "reason": "long agent speeches = transfer signal, but agent handling led to completion; need more 'long_agent_speech_but_still_completed' examples"
+    },
+    {
+      "call_id": "call_00015",
+      "predicted": "abandoned",
+      "actual": "completed",
+      "confidence": 0.64,
+      "reason": "prediction mismatch"
+    },
+    {
+      "call_id": "call_00025",
+      "predicted": "error",
+      "actual": "completed",
+      "confidence": 0.66,
+      "reason": "prediction mismatch"
+    },
+    {
+      "call_id": "call_00028",
+      "predicted": "error",
+      "actual": "completed",
+      "confidence": 0.66,
+      "reason": "prediction mismatch"
+    },
+    {
+      "call_id": "call_00038",
+      "predicted": "error",
+      "actual": "completed",
+      "confidence": 0.69,
+      "reason": "prediction mismatch"
+    },
+    {
+      "call_id": "call_00042",
+      "predicted": "transferred",
+      "actual": "completed",
+      "confidence": 0.61,
+      "reason": "long agent speeches = transfer signal, but agent handling led to completion; need more 'long_agent_speech_but_still_completed' examples"
+    },
+    {
+      "call_id": "call_00059",
+      "predicted": "abandoned",
+      "actual": "completed",
+      "confidence": 0.7,
+      "reason": "prediction mismatch"
+    },
+    {
+      "call_id": "call_00061",
+      "predicted": "abandoned",
+      "actual": "completed",
+      "confidence": 0.59,
+      "reason": "prediction mismatch"
+    },
+    {
+      "call_id": "call_00063",
+      "predicted": "abandoned",
+      "actual": "completed",
+      "confidence": 0.65,
+      "reason": "prediction mismatch"
+    },
+    {
+      "call_id": "call_00065",
+      "predicted": "abandoned",
+      "actual": "completed",
+      "confidence": 0.76,
+      "reason": "prediction mismatch"
+    },
+    {
+      "call_id": "call_00077",
+      "predicted": "abandoned",
+      "actual": "completed",
+      "confidence": 0.68,
+      "reason": "prediction mismatch"
+    },
+    {
+      "call_id": "call_00087",
+      "predicted": "error",
+      "actual": "completed",
+      "confidence": 0.67,
+      "reason": "prediction mismatch"
+    },
+    {
+      "call_id": "call_00088",
+      "predicted": "abandoned",
+      "actual": "completed",
+      "confidence": 0.77,
+      "reason": "prediction mismatch"
+    },
+    {
+      "call_id": "call_00093",
+      "predicted": "abandoned",
+      "actual": "completed",
+      "confidence": 0.7,
+      "reason": "prediction mismatch"
+    },
+    {
+      "call_id": "call_00095",
+      "predicted": "abandoned",
+      "actual": "completed",
+      "confidence": 0.72,
+      "reason": "prediction mismatch"
+    },
+    {
+      "call_id": "call_00097",
+      "predicted": "abandoned",
+      "actual": "completed",
+      "confidence": 0.68,
+      "reason": "prediction mismatch"
+    },
+    {
+      "call_id": "call_00100",
+      "predicted": "abandoned",
+      "actual": "completed",
+      "confidence": 0.71,
+      "reason": "prediction mismatch"
+    },
+    {
+      "call_id": "call_00102",
+      "predicted": "error",
+      "actual": "completed",
+      "confidence": 0.59,
+      "reason": "prediction mismatch"
+    }
+  ]
+}
